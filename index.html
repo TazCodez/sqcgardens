@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="SQC Garden">
+  <meta name="theme-color" content="#4a7c59">
+  <title>SQC Ibadah Garden</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sage: #4a7c59;
+      --sage-light: #7aad8a;
+      --sage-pale: #e8f2eb;
+      --cream: #fdf8f0;
+      --leaf: #2d5a3d;
+      --gold: #e8a020;
+    }
+    html, body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .app {
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: var(--cream);
+      position: relative;
+      overflow-x: hidden;
+      padding-bottom: 40px;
+    }
+    .sky-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 200px;
+      background: linear-gradient(180deg, #c8e6f5 0%, #e8f5e9 100%);
+      z-index: 0;
+    }
+
+    /* ── Header ── */
+    .header {
+      position: relative;
+      z-index: 1;
+      padding: 40px 20px 14px;
+      text-align: center;
+    }
+    .header h1 {
+      font-family: 'Lora', serif;
+      font-size: 24px;
+      color: var(--leaf);
+      letter-spacing: -0.3px;
+    }
+    .header p {
+      font-size: 13px;
+      color: var(--sage);
+      margin-top: 3px;
+      font-style: italic;
+    }
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #e8f5e9;
+      border: 1px solid #a5d6a7;
+      border-radius: 12px;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--sage);
+      margin-top: 8px;
+    }
+    .live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #4caf50;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* ── Name selector ── */
+    .name-selector {
+      position: relative;
+      z-index: 1;
+      padding: 0 20px 16px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .name-btn {
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 1.5px solid var(--sage-light);
+      background: white;
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--sage);
+      cursor: pointer;
+      transition: all 0.18s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .name-btn.active {
+      background: var(--sage);
+      color: white;
+      border-color: var(--sage);
+    }
+
+    /* ── Stat cards ── */
+    .stats-row {
+      position: relative;
+      z-index: 1;
+      padding: 0 20px 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 10px 6px;
+      text-align: center;
+      border: 0.5px solid #d0e8d8;
+    }
+    .stat-num {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--sage);
+      font-family: 'Lora', serif;
+    }
+    .stat-label {
+      font-size: 10px;
+      color: #888;
+      margin-top: 2px;
+      line-height: 1.3;
+    }
+
+    /* ── Garden beds ── */
+    .garden-section {
+      position: relative;
+      z-index: 1;
+      padding: 0 16px 12px;
+    }
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: 15px;
+      color: var(--leaf);
+      margin-bottom: 10px;
+      padding-left: 6px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .section-title::before {
+      content: '';
+      display: block;
+      width: 3px; height: 15px;
+      background: var(--sage-light);
+      border-radius: 2px;
+    }
+    .garden-bed {
+      background: white;
+      border-radius: 16px;
+      border: 0.5px solid #d0e8d8;
+      padding: 14px;
+      min-height: 80px;
+    }
+    .plant-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .plant-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .plant-icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .plant-name {
+      font-size: 9px;
+      color: #666;
+      text-align: center;
+      max-width: 52px;
+      line-height: 1.2;
+      font-weight: 600;
+    }
+    .plant-count {
+      font-size: 9px;
+      color: var(--sage);
+      font-weight: 700;
+      background: var(--sage-pale);
+      border-radius: 8px;
+      padding: 1px 5px;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 18px;
+      color: #bbb;
+      font-size: 13px;
+      font-style: italic;
+    }
+    .soil-strip {
+      height: 10px;
+      background: linear-gradient(180deg, #c8956c, #a0703e);
+      border-radius: 0 0 12px 12px;
+      margin: 0 16px 18px;
+    }
+
+    /* ── Progress ── */
+    .progress-section {
+      position: relative;
+      z-index: 1;
+      padding: 0 16px 20px;
+    }
+    .progress-card {
+      background: white;
+      border-radius: 16px;
+      border: 0.5px solid #d0e8d8;
+      padding: 14px;
+    }
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .progress-row:last-child { margin-bottom: 0; }
+    .prog-icon { font-size: 17px; width: 28px; text-align: center; }
+    .prog-label { font-size: 12px; color: #555; flex: 1; font-weight: 600; }
+    .prog-bar-wrap {
+      width: 80px; height: 6px;
+      background: #eee;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .prog-bar { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+    .prog-count { font-size: 12px; color: var(--sage); font-weight: 700; min-width: 28px; text-align: right; }
+
+    /* ── Badges ── */
+    .badge-section {
+      position: relative;
+      z-index: 1;
+      padding: 0 16px 20px;
+    }
+    .badge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .badge-card {
+      background: white;
+      border-radius: 12px;
+      border: 0.5px solid #d0e8d8;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge-icon {
+      font-size: 20px;
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .badge-title { font-size: 11px; font-weight: 700; color: #333; line-height: 1.3; }
+    .badge-sub   { font-size: 10px; color: #aaa; line-height: 1.3; margin-top: 1px; }
+    .badge-card.earned .badge-icon { background: #e8f5e9; }
+    .badge-card.locked { opacity: 0.42; }
+    .badge-card.locked .badge-icon { background: #f5f5f5; filter: grayscale(1); }
+
+    /* ── States ── */
+    .loading-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--sage);
+      font-size: 14px;
+    }
+    .loading-state .spin {
+      display: inline-block;
+      font-size: 28px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 10px;
+    }
+    @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    .error-state {
+      text-align: center;
+      padding: 24px;
+      color: #e57373;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* ── Buttons ── */
+    .btn-row {
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .refresh-btn {
+      width: 100%;
+      padding: 12px;
+      background: white;
+      color: var(--sage);
+      border: 1.5px solid var(--sage-light);
+      border-radius: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .install-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--sage);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Install tip banner ── */
+    .install-tip {
+      position: relative;
+      z-index: 1;
+      margin: 0 16px 16px;
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: #7a5c00;
+      line-height: 1.6;
+    }
+    .install-tip strong { font-weight: 700; }
+    .install-tip .tip-close {
+      position: absolute;
+      top: 8px; right: 10px;
+      background: none; border: none;
+      font-size: 16px; color: #aaa;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="sky-bg"></div>
+
+  <div class="header">
+    <h1>My Ibadah Garden 🌿</h1>
+    <p>SQC Quran Group</p>
+    <div class="live-badge">
+      <span class="live-dot"></span> Live from Google Sheet
+    </div>
+  </div>
+
+  <div class="name-selector" id="nameSelector"></div>
+
+  <div class="stats-row" id="statsRow">
+    <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Total plants</div></div>
+    <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Quran sessions</div></div>
+    <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Adhkar done</div></div>
+  </div>
+
+  <div id="gardenContent">
+    <div class="loading-state">
+      <div class="spin">🌱</div><br>Loading your garden...
+    </div>
+  </div>
+
+  <div class="install-tip" id="installTip">
+    <button class="tip-close" onclick="document.getElementById('installTip').style.display='none'">×</button>
+    <strong>📱 Add to your home screen!</strong><br>
+    <strong>iPhone:</strong> Tap Share → "Add to Home Screen"<br>
+    <strong>Android:</strong> Tap ⋮ menu → "Add to Home screen"
+  </div>
+
+  <div class="btn-row">
+    <button class="refresh-btn" id="refreshBtn">↻ Refresh garden</button>
+  </div>
+</div>
+
+<script>
+  const API = 'https://script.google.com/macros/s/AKfycbwNoIeJkygzl5DWAWKg1qKy2KuMynzPgoMW9SI9MYYFQkwyei-U0HLqRVxW4fdfTQX1/exec';
+  const NAMES = ['Aisha','Tazmina','Safiyyah','Fatima','Sofia','Nahya','Sitty'];
+
+  let currentName = 'Aisha';
+  let cache = {};
+
+  const PLANT_COLORS = {
+    'sprout':'#c8e6c9','roses':'#ffcdd2','hibiscus':'#f8bbd0','sunflower':'#fff9c4',
+    'orchid':'#e1bee7','daisy':'#fffde7','poppy':'#fce4ec','lily':'#f8bbd0',
+    'allium':'#ede7f6','tulips':'#fce4ec','water lilly':'#e3f2fd','water lily':'#e3f2fd',
+    'hyacinths':'#e8f5e9','bougainvillea':'#fce4ec','latana':'#fff8e1',
+    'petunia':'#fce4ec','jasmine':'#f5f5f5','marigold':'#fff8e1','amaryllis':'#ffcdd2',
+    'red tulips':'#ffcdd2','cactus flower':'#e8f5e9','geranium':'#c8e6c9',
+    'pompom dahlia':'#fffde7','snapdragons':'#dcedc8','chrysanthemum':'#ffccbc',
+    'cherry blossom':'#fce4ec','cacao tree':'#efebe9','periwinkle':'#ede7f6',
+    'calla lill':'#f5f5f5','birch tree':'#e8f5e9','pine tree':'#e8f5e9',
+    'bamboo':'#e8f5e9','oleander':'#fce4ec','lilac':'#ede7f6','lillac':'#ede7f6',
+    'white lill':'#fffde7','lilly of the valley':'#e8f5e9','lily of the valley':'#e8f5e9',
+    'frangipani':'#fff9c4','elephant ear':'#e8f5e9','default':'#e8f5e9'
+  };
+
+  const PLANT_EMOJI = {
+    'sprout':'🌱','roses':'🌹','hibiscus':'🌺','sunflower':'🌻','orchid':'💐',
+    'daisy':'🌼','poppy':'🌸','lily':'🌷','allium':'🪷','tulips':'🌷',
+    'water lilly':'🪷','water lily':'🪷','hyacinths':'🌿','bougainvillea':'🌺',
+    'latana':'🌻','petunia':'🌸','jasmine':'🌸','marigold':'🌼','amaryllis':'🌺',
+    'red tulips':'🌷','cactus flower':'🌵','geranium':'🌿','pompom dahlia':'🌼',
+    'snapdragons':'🌿','chrysanthemum':'🌹','cherry blossom':'🌸','cacao tree':'🌳',
+    'periwinkle':'🌸','calla lill':'🌷','birch tree':'🌲','pine tree':'🌲',
+    'bamboo':'🎋','oleander':'🌸','lilac':'🪷','lillac':'🪷',
+    'white lill':'🌼','lilly of the valley':'🌷','lily of the valley':'🌷',
+    'frangipani':'🌼','elephant ear':'🌿','default':'🌿'
+  };
+
+  function getColor(name) {
+    if (!name) return PLANT_COLORS['default'];
+    const k = name.toLowerCase().trim();
+    for (const [key, val] of Object.entries(PLANT_COLORS)) {
+      if (key !== 'default' && k.includes(key)) return val;
+    }
+    return PLANT_COLORS['default'];
+  }
+
+  function getEmoji(name) {
+    if (!name) return PLANT_EMOJI['default'];
+    const k = name.toLowerCase().trim();
+    for (const [key, val] of Object.entries(PLANT_EMOJI)) {
+      if (key !== 'default' && k.includes(key)) return val;
+    }
+    return '🌿';
+  }
+
+  function countPlants(entries, field) {
+    const map = {};
+    entries.forEach(e => {
+      const v = e[field];
+      if (v && v.toString().trim()) {
+        const name = v.toString().trim();
+        map[name] = (map[name] || 0) + 1;
+      }
+    });
+    return Object.entries(map).map(([name, count]) => ({
+      name, count, emoji: getEmoji(name), color: getColor(name)
+    }));
+  }
+
+  function plantHTML(p) {
+    return `<div class="plant-item">
+      <div class="plant-icon" style="background:${p.color}">${p.emoji}</div>
+      <div class="plant-name">${p.name}</div>
+      <div class="plant-count">×${p.count}</div>
+    </div>`;
+  }
+
+  function renderGarden(plants) {
+    if (!plants.length) return '<div class="empty-state">No plants yet — keep going! 🌱</div>';
+    return '<div class="plant-grid">' + plants.map(plantHTML).join('') + '</div>';
+  }
+
+  function buildContent(name, entries) {
+    const quranEntries  = entries.filter(e => e.ibadahType === 'Quran' || (!e.ibadahType && (e.pages || e.seedling || e.whiteFlower || e.redFlower || e.yellowFlower || e.purpleFlower)));
+    const adhkarEntries = entries.filter(e => e.ibadahType === 'Morning Adhkar' || e.ibadahType === 'Evening Adhkar');
+    const hifzEntries   = entries.filter(e => e.ibadahType === 'Hifz' || e.ibadahType === 'Tahajjud');
+
+    const quranPlants  = [...countPlants(quranEntries,'seedling'),...countPlants(quranEntries,'whiteFlower'),...countPlants(quranEntries,'redFlower'),...countPlants(quranEntries,'yellowFlower'),...countPlants(quranEntries,'purpleFlower')];
+    const adhkarPlants = [...countPlants(adhkarEntries,'adhkarFlower'),...countPlants(adhkarEntries,'eveningFlower')];
+    const hifzPlants   = [...countPlants(hifzEntries,'hifzPlant'),...countPlants(hifzEntries,'tahajjudFlower')];
+
+    const totalPlants  = [...quranPlants,...adhkarPlants,...hifzPlants].reduce((s,p)=>s+p.count,0);
+    const quranCount   = quranEntries.length;
+    const adhkarCount  = adhkarEntries.length;
+    const hifzCount    = hifzEntries.length;
+    const tahajjudCount= entries.filter(e=>e.ibadahType==='Tahajjud').length;
+
+    document.getElementById('statsRow').innerHTML = `
+      <div class="stat-card"><div class="stat-num">${totalPlants}</div><div class="stat-label">Total plants grown</div></div>
+      <div class="stat-card"><div class="stat-num">${quranCount}</div><div class="stat-label">Quran sessions</div></div>
+      <div class="stat-card"><div class="stat-num">${adhkarCount}</div><div class="stat-label">Adhkar entries</div></div>`;
+
+    const maxVal = Math.max(quranCount, adhkarCount, hifzCount, tahajjudCount, 1);
+    const progressRows = [
+      {icon:'📖', label:'Quran recitation',    val:quranCount,    color:'#7aad8a'},
+      {icon:'🤲', label:'Morning & Evening Adhkar', val:adhkarCount,   color:'#7ab8d4'},
+      {icon:'📿', label:'Hifz (memorisation)', val:hifzCount,     color:'#c4a5d8'},
+      {icon:'🌙', label:'Tahajjud prayer',     val:tahajjudCount, color:'#d4a5b8'},
+    ];
+    const badges = [
+      {e:'⭐', t:'Quran Reader',     s:`${quranCount} sessions`,   earned: quranCount >= 5},
+      {e:'🌙', t:'Night Worshipper', s:'Tahajjud done',            earned: tahajjudCount >= 3},
+      {e:'📿', t:'Memoriser',        s:'Hifz in progress',         earned: hifzCount >= 3},
+      {e:'🌸', t:'Full Bloom',       s:'Garden flourishing',       earned: totalPlants >= 20},
+    ];
+
+    document.getElementById('gardenContent').innerHTML = `
+      <div class="garden-section">
+        <div class="section-title">Quran Garden</div>
+        <div class="garden-bed">${renderGarden(quranPlants)}</div>
+      </div>
+      <div class="soil-strip"></div>
+      <div class="garden-section">
+        <div class="section-title">Adhkar Garden</div>
+        <div class="garden-bed">${renderGarden(adhkarPlants)}</div>
+      </div>
+      <div class="soil-strip"></div>
+      <div class="garden-section">
+        <div class="section-title">Hifz & Tahajjud</div>
+        <div class="garden-bed">${renderGarden(hifzPlants)}</div>
+      </div>
+      <div class="soil-strip"></div>
+      <div class="progress-section">
+        <div class="section-title">Progress overview</div>
+        <div class="progress-card">
+          ${progressRows.map(r=>`
+            <div class="progress-row">
+              <span class="prog-icon">${r.icon}</span>
+              <span class="prog-label">${r.label}</span>
+              <div class="prog-bar-wrap"><div class="prog-bar" style="width:${Math.round((r.val/maxVal)*100)}%;background:${r.color}"></div></div>
+              <span class="prog-count">${r.val}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+      <div class="badge-section">
+        <div class="section-title">Achievements</div>
+        <div class="badge-grid">
+          ${badges.map(b=>`
+            <div class="badge-card ${b.earned?'earned':'locked'}">
+              <div class="badge-icon">${b.e}</div>
+              <div><div class="badge-title">${b.t}</div><div class="badge-sub">${b.s}</div></div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  async function loadMember(name, forceRefresh) {
+    currentName = name;
+    document.querySelectorAll('.name-btn').forEach(b => b.classList.toggle('active', b.dataset.name === name));
+
+    if (cache[name] && !forceRefresh) { buildContent(name, cache[name]); return; }
+
+    document.getElementById('gardenContent').innerHTML = `<div class="loading-state"><div class="spin">🌱</div><br>Loading ${name}'s garden...</div>`;
+    document.getElementById('statsRow').innerHTML = '<div class="stat-card"><div class="stat-num">...</div><div class="stat-label">Loading</div></div>'.repeat(3);
+
+    try {
+      const res  = await fetch(API + '?name=' + encodeURIComponent(name));
+      const json = await res.json();
+      cache[name] = json.entries || [];
+      buildContent(name, cache[name]);
+    } catch (err) {
+      document.getElementById('gardenContent').innerHTML = `<div class="error-state">⚠️ Could not load data.<br>Make sure you're connected to the internet.<br><small style="opacity:0.6">${err.message}</small></div>`;
+    }
+  }
+
+  // Build name buttons
+  const sel = document.getElementById('nameSelector');
+  NAMES.forEach(n => {
+    const b = document.createElement('button');
+    b.className = 'name-btn';
+    b.dataset.name = n;
+    b.textContent = n;
+    b.onclick = () => loadMember(n);
+    sel.appendChild(b);
+  });
+
+  document.getElementById('refreshBtn').onclick = () => loadMember(currentName, true);
+
+  loadMember('Aisha');
+</script>
+</body>
+</html>
