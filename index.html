@@ -685,14 +685,18 @@ async function submitForm() {
   const morningDone = MORNING_ADHKAR_LIST.filter((_,i)=>checkedMorning[i]).join('; ');
   const eveningDone = EVENING_ADHKAR_LIST.filter((_,i)=>checkedEvening[i]).join('; ');
 
-  const payload = {
+  const btn = document.getElementById('submitBtn');
+  btn.disabled=true; btn.textContent='🌱 Saving...';
+
+  const params = new URLSearchParams({
+    action: 'log',
     name:           formName,
     day:            document.getElementById('field-day').value,
     ibadahType:     selectedType,
     pages:          pages,
-    seedling:       pagesData.section==='Seedling'    ? (selectedFlowers['Seedling']||'') : '',
-    whiteFlower:    pagesData.section==='whiteFlower'  ? (selectedFlowers['whiteFlower']||'') : '',
-    redFlower:      pagesData.section==='redFlower'    ? (selectedFlowers['redFlower']||'') : '',
+    seedling:       pagesData.section==='Seedling'     ? (selectedFlowers['Seedling']||'')     : '',
+    whiteFlower:    pagesData.section==='whiteFlower'  ? (selectedFlowers['whiteFlower']||'')  : '',
+    redFlower:      pagesData.section==='redFlower'    ? (selectedFlowers['redFlower']||'')    : '',
     yellowFlower:   pagesData.section==='yellowFlower' ? (selectedFlowers['yellowFlower']||'') : '',
     purpleFlower:   pagesData.section==='purpleFlower' ? (selectedFlowers['purpleFlower']||'') : '',
     adhkarMorning:  morningDone,
@@ -702,22 +706,10 @@ async function submitForm() {
     hifzAyats:      document.getElementById('field-hifz-ayats')?.value||'',
     hifzPlant:      selectedFlowers['hifzPlant']||'',
     tahajjudFlower: selectedFlowers['tahajjudFlower']||'',
-  };
-
-  // Fix seedling field key
-  if (pagesData.section==='Seedling') {
-    payload.seedling = selectedFlowers['Seedling']||'';
-  }
-
-  const btn = document.getElementById('submitBtn');
-  btn.disabled=true; btn.textContent='🌱 Saving...';
+  });
 
   try {
-    await fetch(API, {
-      method:'POST', mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(payload)
-    });
+    await fetch(API + '?' + params.toString());
     showToast('🌸 MashaAllah! Ibadah logged!');
     // Reset
     selectedType=null; selectedFlowers={}; checkedMorning={}; checkedEvening={};
