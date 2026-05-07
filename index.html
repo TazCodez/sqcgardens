@@ -15,10 +15,10 @@
     :root{--sage:#4a7c59;--sage-light:#7aad8a;--sage-pale:#e8f2eb;--cream:#fdf8f0;--leaf:#2d5a3d}
     html,body{font-family:'Nunito',sans-serif;background:var(--cream);min-height:100vh;-webkit-tap-highlight-color:transparent}
     .app{max-width:430px;margin:0 auto;min-height:100vh;background:var(--cream);position:relative;overflow-x:hidden;padding-bottom:80px}
-    .sky-bg{position:absolute;top:0;left:0;right:0;height:220px;background:linear-gradient(180deg,#c8e6f5 0%,#e8f5e9 100%);z-index:0}
+    .sky-bg{position:absolute;top:0;left:0;right:0;height:220px;background:linear-gradient(180deg,#c8e6f5 0%,#d4ecd4 40%,#e8f2eb 70%,#fdf8f0 100%);z-index:0}
 
     /* Header */
-    .header{position:relative;z-index:1;padding:40px 20px 14px;text-align:center}
+    .header{position:relative;z-index:0;padding:40px 20px 14px;text-align:center}
     .header h1{font-family:'Lora',serif;font-size:24px;color:var(--leaf);letter-spacing:-0.3px}
     .header p{font-size:13px;color:var(--sage);margin-top:3px;font-style:italic}
     .week-badge{display:inline-flex;align-items:center;gap:5px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--sage);margin-top:8px}
@@ -98,9 +98,7 @@
 
     /* ══ FORM STYLES ══ */
     .form-wrap{padding:14px 16px 20px}
-    .form-name-selector{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
-    .form-name-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--sage-light);background:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;color:var(--sage);cursor:pointer;transition:all 0.18s}
-    .form-name-btn.active{background:var(--sage);color:white;border-color:var(--sage)}
+    .form-name-selector{margin-bottom:16px}
 
     .ibadah-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
     .type-card{background:white;border:1.5px solid #d0e8d8;border-radius:14px;padding:12px 10px;text-align:center;cursor:pointer;transition:all 0.18s}
@@ -193,10 +191,14 @@
   <div class="tab-panel" id="panel-log">
     <div class="form-wrap">
 
-      <div class="garden-section" style="padding:12px 0 4px">
-        <div class="section-title">Who is logging? 🌸</div>
+      <div class="form-section visible">
+        <div class="form-section-title">🌸 Who is logging?</div>
+        <div class="form-group">
+          <select class="form-select" id="formNameSelector" onchange="formName=this.value">
+            <option value="">Select your name...</option>
+          </select>
+        </div>
       </div>
-      <div class="form-name-selector" id="formNameSelector"></div>
 
       <!-- Day selector -->
       <div class="form-section visible">
@@ -728,8 +730,6 @@ async function submitForm() {
       currentName=formName;
       await loadMember(formName,true);
       switchTab('garden');
-      document.querySelectorAll('#nameSelector .name-btn').forEach(b=>
-        b.classList.toggle('active',b.dataset.name===formName));
     },2000);
   } catch(err) {
     showToast('⚠️ Could not save. Check your connection.');
@@ -747,15 +747,10 @@ NAMES.forEach(n=>{
 
 const fsel=document.getElementById('formNameSelector');
 NAMES.forEach(n=>{
-  const b=document.createElement('button');
-  b.className='form-name-btn'; b.dataset.name=n; b.textContent=n;
-  if(n===formName) b.classList.add('active');
-  b.onclick=()=>{
-    formName=n;
-    document.querySelectorAll('.form-name-btn').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-  };
-  fsel.appendChild(b);
+  const opt=document.createElement('option');
+  opt.value=n; opt.textContent=n;
+  if(n===formName) opt.selected=true;
+  fsel.appendChild(opt);
 });
 
 document.getElementById('refreshBtn').onclick=()=>loadMember(currentName,true);
