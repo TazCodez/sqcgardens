@@ -7,150 +7,147 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="SQC Garden">
   <meta name="theme-color" content="#4a7c59">
-  <title>SQC Ibadah Garden</title>
+  <title>Sisters Quran Club 🌸</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --sage: #4a7c59;
-      --sage-light: #7aad8a;
-      --sage-pale: #e8f2eb;
-      --cream: #fdf8f0;
-      --leaf: #2d5a3d;
-    }
-    html, body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--cream);
-      min-height: 100vh;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .app {
-      max-width: 430px;
-      margin: 0 auto;
-      min-height: 100vh;
-      background: var(--cream);
-      position: relative;
-      overflow-x: hidden;
-      padding-bottom: 40px;
-    }
-    .sky-bg {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 220px;
-      background: linear-gradient(180deg, #c8e6f5 0%, #e8f5e9 100%);
-      z-index: 0;
-    }
-    .header {
-      position: relative;
-      z-index: 1;
-      padding: 40px 20px 14px;
-      text-align: center;
-    }
-    .header h1 { font-family: 'Lora', serif; font-size: 24px; color: var(--leaf); letter-spacing: -0.3px; }
-    .header p  { font-size: 13px; color: var(--sage); margin-top: 3px; font-style: italic; }
-    .week-badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: #e8f5e9; border: 1px solid #a5d6a7;
-      border-radius: 12px; padding: 4px 12px;
-      font-size: 11px; font-weight: 700; color: var(--sage); margin-top: 8px;
-    }
-    .live-dot { width:6px; height:6px; border-radius:50%; background:#4caf50; animation:pulse 1.5s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{--sage:#4a7c59;--sage-light:#7aad8a;--sage-pale:#e8f2eb;--cream:#fdf8f0;--leaf:#2d5a3d}
+    html,body{font-family:'Nunito',sans-serif;background:var(--cream);min-height:100vh;-webkit-tap-highlight-color:transparent}
+    .app{max-width:430px;margin:0 auto;min-height:100vh;background:var(--cream);position:relative;overflow-x:hidden;padding-bottom:80px}
+    .sky-bg{position:absolute;top:0;left:0;right:0;height:220px;background:linear-gradient(180deg,#c8e6f5 0%,#e8f5e9 100%);z-index:0}
 
-    .week-strip {
-      position: relative; z-index: 1;
-      margin: 0 16px 14px; background: white;
-      border-radius: 14px; border: 0.5px solid #d0e8d8;
-      padding: 10px 14px; display: flex;
-      justify-content: space-between; align-items: center;
-    }
-    .week-label { font-size: 11px; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-    .day-dots { display: flex; gap: 5px; }
-    .day-dot  { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-    .day-dot span { font-size: 9px; color: #aaa; font-weight: 600; }
-    .dot { width:10px; height:10px; border-radius:50%; background:#eee; }
-    .dot.done  { background: var(--sage-light); }
-    .dot.today { background: var(--sage); box-shadow: 0 0 0 2px #c8e6c9; }
+    /* Header */
+    .header{position:relative;z-index:1;padding:40px 20px 14px;text-align:center}
+    .header h1{font-family:'Lora',serif;font-size:24px;color:var(--leaf);letter-spacing:-0.3px}
+    .header p{font-size:13px;color:var(--sage);margin-top:3px;font-style:italic}
+    .week-badge{display:inline-flex;align-items:center;gap:5px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--sage);margin-top:8px}
+    .live-dot{width:6px;height:6px;border-radius:50%;background:#4caf50;animation:pulse 1.5s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 
-    .name-selector {
-      position: relative; z-index: 1;
-      padding: 0 20px 16px;
-      display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
-    }
-    .name-btn {
-      padding: 7px 16px; border-radius: 20px;
-      border: 1.5px solid var(--sage-light); background: white;
-      font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 600;
-      color: var(--sage); cursor: pointer; transition: all 0.18s;
-    }
-    .name-btn.active { background: var(--sage); color: white; border-color: var(--sage); }
+    /* Week strip */
+    .week-strip{position:relative;z-index:1;margin:12px 16px 14px;background:white;border-radius:14px;border:0.5px solid #d0e8d8;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+    .week-label{font-size:11px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+    .day-dots{display:flex;gap:5px}
+    .day-dot{display:flex;flex-direction:column;align-items:center;gap:3px}
+    .day-dot span{font-size:9px;color:#aaa;font-weight:600}
+    .dot{width:10px;height:10px;border-radius:50%;background:#eee}
+    .dot.done{background:var(--sage-light)}
+    .dot.today{background:var(--sage);box-shadow:0 0 0 2px #c8e6c9}
 
-    .stats-row {
-      position: relative; z-index: 1;
-      padding: 0 20px 14px;
-      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
-    }
-    .stat-card { background: white; border-radius: 12px; padding: 10px 6px; text-align: center; border: 0.5px solid #d0e8d8; }
-    .stat-num  { font-size: 22px; font-weight: 700; color: var(--sage); font-family: 'Lora', serif; }
-    .stat-label{ font-size: 10px; color: #888; margin-top: 2px; line-height: 1.3; }
+    /* Name selector */
+    .name-selector{position:relative;z-index:1;padding:0 20px 16px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+    .name-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--sage-light);background:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;color:var(--sage);cursor:pointer;transition:all 0.18s}
+    .name-btn.active{background:var(--sage);color:white;border-color:var(--sage)}
 
-    .garden-section { position: relative; z-index: 1; padding: 0 16px 12px; }
-    .section-title {
-      font-family: 'Lora', serif; font-size: 15px; color: var(--leaf);
-      margin-bottom: 10px; padding-left: 6px;
-      display: flex; align-items: center; gap: 7px;
-    }
-    .section-title::before { content:''; display:block; width:3px; height:15px; background:var(--sage-light); border-radius:2px; }
-    .garden-bed { background: white; border-radius: 16px; border: 0.5px solid #d0e8d8; padding: 14px; min-height: 80px; }
-    .plant-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-    .plant-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-    .plant-icon { width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; }
-    .plant-name { font-size:9px; color:#666; text-align:center; max-width:52px; line-height:1.2; font-weight:600; }
-    .plant-count{ font-size:9px; color:var(--sage); font-weight:700; background:var(--sage-pale); border-radius:8px; padding:1px 5px; }
-    .empty-state{ text-align:center; padding:20px; color:#bbb; font-size:13px; font-style:italic; line-height:1.6; }
-    .empty-state span { font-size:22px; display:block; margin-bottom:6px; }
-    .soil-strip { height:10px; background:linear-gradient(180deg,#c8956c,#a0703e); border-radius:0 0 12px 12px; margin:0 16px 18px; }
+    /* Stats */
+    .stats-row{position:relative;z-index:1;padding:0 20px 14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+    .stat-card{background:white;border-radius:12px;padding:10px 6px;text-align:center;border:0.5px solid #d0e8d8}
+    .stat-num{font-size:22px;font-weight:700;color:var(--sage);font-family:'Lora',serif}
+    .stat-label{font-size:10px;color:#888;margin-top:2px;line-height:1.3}
 
-    .progress-section { position: relative; z-index: 1; padding: 0 16px 20px; }
-    .progress-card { background: white; border-radius: 16px; border: 0.5px solid #d0e8d8; padding: 14px; }
-    .progress-row { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
-    .progress-row:last-child { margin-bottom:0; }
-    .prog-icon  { font-size:17px; width:28px; text-align:center; }
-    .prog-label { font-size:12px; color:#555; flex:1; font-weight:600; }
-    .prog-bar-wrap { width:80px; height:6px; background:#eee; border-radius:4px; overflow:hidden; }
-    .prog-bar   { height:100%; border-radius:4px; transition:width 0.6s ease; }
-    .prog-count { font-size:12px; color:var(--sage); font-weight:700; min-width:36px; text-align:right; }
+    /* Garden beds */
+    .garden-section{position:relative;z-index:1;padding:0 16px 12px}
+    .section-title{font-family:'Lora',serif;font-size:15px;color:var(--leaf);margin-bottom:10px;padding-left:6px;display:flex;align-items:center;gap:7px}
+    .section-title::before{content:'';display:block;width:3px;height:15px;background:var(--sage-light);border-radius:2px}
+    .garden-bed{background:white;border-radius:16px;border:0.5px solid #d0e8d8;padding:14px;min-height:80px}
+    .plant-grid{display:flex;flex-wrap:wrap;gap:10px}
+    .plant-item{display:flex;flex-direction:column;align-items:center;gap:4px}
+    .plant-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
+    .plant-name{font-size:9px;color:#666;text-align:center;max-width:52px;line-height:1.2;font-weight:600}
+    .plant-count{font-size:9px;color:var(--sage);font-weight:700;background:var(--sage-pale);border-radius:8px;padding:1px 5px}
+    .empty-state{text-align:center;padding:20px;color:#bbb;font-size:13px;font-style:italic;line-height:1.6}
+    .empty-state span{font-size:22px;display:block;margin-bottom:6px}
+    .soil-strip{height:10px;background:linear-gradient(180deg,#c8956c,#a0703e);border-radius:0 0 12px 12px;margin:0 16px 18px}
 
-    .badge-section { position: relative; z-index: 1; padding: 0 16px 20px; }
-    .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .badge-card { background:white; border-radius:12px; border:0.5px solid #d0e8d8; padding:10px; display:flex; align-items:center; gap:8px; }
-    .badge-icon { font-size:20px; width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    .badge-title{ font-size:11px; font-weight:700; color:#333; line-height:1.3; }
-    .badge-sub  { font-size:10px; color:#aaa; line-height:1.3; margin-top:1px; }
-    .badge-card.earned .badge-icon { background:#e8f5e9; }
-    .badge-card.locked { opacity:0.42; }
-    .badge-card.locked .badge-icon { background:#f5f5f5; filter:grayscale(1); }
+    /* Progress */
+    .progress-section{position:relative;z-index:1;padding:0 16px 20px}
+    .progress-card{background:white;border-radius:16px;border:0.5px solid #d0e8d8;padding:14px}
+    .progress-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .progress-row:last-child{margin-bottom:0}
+    .prog-icon{font-size:17px;width:28px;text-align:center}
+    .prog-label{font-size:12px;color:#555;flex:1;font-weight:600}
+    .prog-bar-wrap{width:80px;height:6px;background:#eee;border-radius:4px;overflow:hidden}
+    .prog-bar{height:100%;border-radius:4px;transition:width 0.6s ease}
+    .prog-count{font-size:12px;color:var(--sage);font-weight:700;min-width:36px;text-align:right}
 
-    .loading-state { text-align:center; padding:40px 20px; color:var(--sage); font-size:14px; }
-    .loading-state .spin { display:inline-block; font-size:28px; animation:spin 1s linear infinite; margin-bottom:10px; }
-    @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-    .error-state { text-align:center; padding:24px; color:#e57373; font-size:13px; line-height:1.6; }
+    /* Badges */
+    .badge-section{position:relative;z-index:1;padding:0 16px 20px}
+    .badge-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .badge-card{background:white;border-radius:12px;border:0.5px solid #d0e8d8;padding:10px;display:flex;align-items:center;gap:8px}
+    .badge-icon{font-size:20px;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .badge-title{font-size:11px;font-weight:700;color:#333;line-height:1.3}
+    .badge-sub{font-size:10px;color:#aaa;line-height:1.3;margin-top:1px}
+    .badge-card.earned .badge-icon{background:#e8f5e9}
+    .badge-card.locked{opacity:0.42}
+    .badge-card.locked .badge-icon{background:#f5f5f5;filter:grayscale(1)}
 
-    .btn-row { padding: 0 16px 10px; }
-    .refresh-btn {
-      width:100%; padding:12px; background:white; color:var(--sage);
-      border:1.5px solid var(--sage-light); border-radius:14px;
-      font-family:'Nunito',sans-serif; font-size:14px; font-weight:600; cursor:pointer;
-    }
-    .install-tip {
-      position:relative; z-index:1;
-      margin:0 16px 16px; background:#fff8e1;
-      border:1px solid #ffe082; border-radius:14px;
-      padding:12px 32px 12px 14px; font-size:12px; color:#7a5c00; line-height:1.7;
-    }
-    .install-tip strong { font-weight:700; }
-    .tip-close { position:absolute; top:8px; right:10px; background:none; border:none; font-size:18px; color:#aaa; cursor:pointer; }
+    /* Loading/error */
+    .loading-state{text-align:center;padding:40px 20px;color:var(--sage);font-size:14px}
+    .loading-state .spin{display:inline-block;font-size:28px;animation:spin 1s linear infinite;margin-bottom:10px}
+    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .error-state{text-align:center;padding:24px;color:#e57373;font-size:13px;line-height:1.6}
+
+    /* Refresh */
+    .btn-row{padding:0 16px 10px}
+    .refresh-btn{width:100%;padding:12px;background:white;color:var(--sage);border:1.5px solid var(--sage-light);border-radius:14px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;cursor:pointer}
+
+    /* Tab panels */
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
+
+    /* ══ FORM STYLES ══ */
+    .form-wrap{padding:14px 16px 20px}
+    .form-name-selector{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+    .form-name-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--sage-light);background:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;color:var(--sage);cursor:pointer;transition:all 0.18s}
+    .form-name-btn.active{background:var(--sage);color:white;border-color:var(--sage)}
+
+    .ibadah-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+    .type-card{background:white;border:1.5px solid #d0e8d8;border-radius:14px;padding:12px 10px;text-align:center;cursor:pointer;transition:all 0.18s}
+    .type-card.active{border-color:var(--sage);background:var(--sage-pale)}
+    .type-card .type-icon{font-size:24px;margin-bottom:4px}
+    .type-card .type-name{font-size:12px;font-weight:700;color:#444;line-height:1.3}
+    .type-card.active .type-name{color:var(--leaf)}
+
+    .form-section{background:white;border-radius:16px;border:0.5px solid #d0e8d8;padding:16px;margin-bottom:14px;display:none}
+    .form-section.visible{display:block}
+    .form-section-title{font-family:'Lora',serif;font-size:14px;color:var(--leaf);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+    .form-group{margin-bottom:14px}
+    .form-group:last-child{margin-bottom:0}
+    .form-label{font-size:12px;font-weight:700;color:#555;margin-bottom:8px;display:block}
+    .form-sublabel{font-size:11px;color:#999;margin-bottom:6px;display:block;font-style:italic}
+    .form-select,.form-input{width:100%;padding:10px 12px;border:1.5px solid #d0e8d8;border-radius:10px;font-family:'Nunito',sans-serif;font-size:13px;color:#333;background:var(--cream);appearance:none;-webkit-appearance:none;outline:none;transition:border-color 0.2s}
+    .form-select:focus,.form-input:focus{border-color:var(--sage-light)}
+
+    .flower-grid{display:flex;flex-wrap:wrap;gap:8px}
+    .flower-chip{padding:6px 12px;border-radius:20px;border:1.5px solid #d0e8d8;background:white;font-family:'Nunito',sans-serif;font-size:12px;font-weight:600;color:#555;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:4px}
+    .flower-chip.selected{border-color:var(--sage);background:var(--sage-pale);color:var(--leaf)}
+
+    .checklist-scroll{max-height:260px;overflow-y:auto;border:0.5px solid #d0e8d8;border-radius:10px;padding:4px}
+    .checklist-row{display:flex;align-items:flex-start;gap:10px;padding:8px;border-bottom:0.5px solid #f5f5f5;cursor:pointer}
+    .checklist-row:last-child{border-bottom:none}
+    .check-box{width:20px;height:20px;min-width:20px;border-radius:6px;border:1.5px solid #d0e8d8;background:white;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all 0.15s;margin-top:1px}
+    .check-box.checked{background:var(--sage);border-color:var(--sage);color:white}
+    .check-label{font-size:11px;color:#555;font-weight:600;line-height:1.4;flex:1}
+
+    .color-section-label{font-size:12px;font-weight:700;color:#888;margin:12px 0 6px;display:flex;align-items:center;gap:6px}
+
+    .submit-btn{width:100%;padding:14px;background:var(--sage);color:white;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:0.3px;margin-top:4px;transition:opacity 0.2s}
+    .submit-btn:disabled{opacity:0.5;cursor:not-allowed}
+
+    /* Toast */
+    .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--leaf);color:white;padding:12px 24px;border-radius:14px;font-size:13px;font-weight:700;opacity:0;transition:all 0.3s;z-index:100;white-space:nowrap;pointer-events:none}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    /* Bottom nav */
+    .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:white;border-top:0.5px solid #d0e8d8;display:grid;grid-template-columns:1fr 1fr;z-index:10}
+    .nav-btn{padding:12px;border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;color:#aaa;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:color 0.2s}
+    .nav-btn .nav-icon{font-size:20px}
+    .nav-btn.active{color:var(--sage)}
+
+    .install-tip{position:relative;z-index:1;margin:0 16px 16px;background:#fff8e1;border:1px solid #ffe082;border-radius:14px;padding:12px 32px 12px 14px;font-size:12px;color:#7a5c00;line-height:1.7}
+    .install-tip strong{font-weight:700}
+    .tip-close{position:absolute;top:8px;right:10px;background:none;border:none;font-size:18px;color:#aaa;cursor:pointer}
   </style>
 </head>
 <body>
@@ -158,250 +155,612 @@
   <div class="sky-bg"></div>
 
   <div class="header">
-    <h1>My Ibadah Garden 🌿</h1>
-    <p>SQC Quran Group</p>
+    <h1>Sisters Quran Club 🌸</h1>
+    <p>Ibadah Garden Tracker</p>
     <div class="week-badge">
       <span class="live-dot"></span>
       <span id="weekLabel">This week's garden</span>
     </div>
   </div>
 
-  <div class="week-strip">
-    <span class="week-label">This week</span>
-    <div class="day-dots" id="dayDots"></div>
+  <!-- GARDEN TAB -->
+  <div class="tab-panel active" id="panel-garden">
+    <div class="week-strip">
+      <span class="week-label">This week</span>
+      <div class="day-dots" id="dayDots"></div>
+    </div>
+    <div class="name-selector" id="nameSelector"></div>
+    <div class="stats-row" id="statsRow">
+      <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Plants this week</div></div>
+      <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Quran sessions</div></div>
+      <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Adhkar done</div></div>
+    </div>
+    <div id="gardenContent">
+      <div class="loading-state"><div class="spin">🌱</div><br>Loading your garden...</div>
+    </div>
+    <div class="install-tip" id="installTip">
+      <button class="tip-close" onclick="document.getElementById('installTip').style.display='none'">×</button>
+      <strong>📱 Add to your home screen!</strong><br>
+      <strong>iPhone:</strong> Tap Share → "Add to Home Screen"<br>
+      <strong>Android:</strong> Tap ⋮ menu → "Add to Home screen"
+    </div>
+    <div class="btn-row">
+      <button class="refresh-btn" id="refreshBtn">↻ Refresh garden</button>
+    </div>
   </div>
 
-  <div class="name-selector" id="nameSelector"></div>
+  <!-- LOG IBADAH TAB -->
+  <div class="tab-panel" id="panel-log">
+    <div class="form-wrap">
 
-  <div class="stats-row" id="statsRow">
-    <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Plants this week</div></div>
-    <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Quran sessions</div></div>
-    <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Adhkar done</div></div>
+      <div class="garden-section" style="padding:12px 0 4px">
+        <div class="section-title">Who is logging? 🌸</div>
+      </div>
+      <div class="form-name-selector" id="formNameSelector"></div>
+
+      <!-- Day selector -->
+      <div class="form-section visible">
+        <div class="form-section-title">📅 What day is it?</div>
+        <div class="form-group">
+          <select class="form-select" id="field-day">
+            <option value="">Select a day...</option>
+            <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+            <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- What to track -->
+      <div class="garden-section" style="padding:4px 0 8px">
+        <div class="section-title">What are you tracking today?</div>
+      </div>
+      <div class="ibadah-type-grid">
+        <div class="type-card" data-type="Quran" onclick="selectType(this)">
+          <div class="type-icon">📖</div><div class="type-name">Quran Recitation</div>
+        </div>
+        <div class="type-card" data-type="Morning Adhkar" onclick="selectType(this)">
+          <div class="type-icon">🌅</div><div class="type-name">Morning Adhkar</div>
+        </div>
+        <div class="type-card" data-type="Evening Adhkar" onclick="selectType(this)">
+          <div class="type-icon">🌙</div><div class="type-name">Evening Adhkar</div>
+        </div>
+        <div class="type-card" data-type="Hifz" onclick="selectType(this)">
+          <div class="type-icon">📿</div><div class="type-name">Hifz</div>
+        </div>
+        <div class="type-card" data-type="Tahajjud" onclick="selectType(this)">
+          <div class="type-icon">✨</div><div class="type-name">Tahajjud</div>
+        </div>
+      </div>
+
+      <!-- QURAN SECTION -->
+      <div class="form-section" id="sec-quran">
+        <div class="form-section-title">📖 Quran Recitation</div>
+        <div class="form-group">
+          <label class="form-label">How many pages did you read?</label>
+          <select class="form-select" id="field-pages" onchange="updateQuranPlants()">
+            <option value="">Select...</option>
+            <option value="2 pages">2 pages</option>
+            <option value="4 pages">4 pages</option>
+            <option value="6 pages">6 pages</option>
+            <option value="8 pages">8 pages</option>
+            <option value="10 pages or more">10 pages or more</option>
+          </select>
+        </div>
+        <div class="form-group" id="quran-plants-group" style="display:none">
+          <div class="color-section-label" id="quran-color-label"></div>
+          <div class="flower-grid" id="quran-flowers"></div>
+        </div>
+      </div>
+
+      <!-- MORNING ADHKAR SECTION -->
+      <div class="form-section" id="sec-morning">
+        <div class="form-section-title">🌅 Morning Adhkar Checklist</div>
+        <div class="form-group">
+          <label class="form-label">Tick what you completed ✅</label>
+          <div class="checklist-scroll" id="morning-checklist"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Pick a flower for your garden 💐</label>
+          <div class="flower-grid" id="morning-flowers"></div>
+        </div>
+      </div>
+
+      <!-- EVENING ADHKAR SECTION -->
+      <div class="form-section" id="sec-evening">
+        <div class="form-section-title">🌙 Evening Adhkar Checklist</div>
+        <div class="form-group">
+          <label class="form-label">Tick what you completed ✅</label>
+          <div class="checklist-scroll" id="evening-checklist"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Pick a plant for your garden 🪴</label>
+          <div class="flower-grid" id="evening-flowers"></div>
+        </div>
+      </div>
+
+      <!-- HIFZ SECTION -->
+      <div class="form-section" id="sec-hifz">
+        <div class="form-section-title">📿 Hifz Tracker</div>
+        <div class="form-group">
+          <label class="form-label">How many ayats did you memorise today?</label>
+          <select class="form-select" id="field-hifz-ayats" onchange="updateHifzPlants()">
+            <option value="">Select...</option>
+            <option value="1 Ayat">1 Ayat</option>
+            <option value="2 Ayats">2 Ayats</option>
+            <option value="3 Ayats">3 Ayats</option>
+            <option value="4 Ayats">4 Ayats</option>
+            <option value="5 Ayats or more">5 Ayats or more</option>
+          </select>
+        </div>
+        <div class="form-group" id="hifz-plants-group" style="display:none">
+          <label class="form-label" id="hifz-plant-label">Pick a plant 🪴</label>
+          <div class="flower-grid" id="hifz-flowers"></div>
+        </div>
+      </div>
+
+      <!-- TAHAJJUD SECTION -->
+      <div class="form-section" id="sec-tahajjud">
+        <div class="form-section-title">✨ Tahajjud Tracker</div>
+        <div class="form-group">
+          <label class="form-label">MashaAllah for praying Tahajjud! 🤲<br>Pick a flower for your garden 🌸</label>
+          <div class="flower-grid" id="tahajjud-flowers"></div>
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()">🌱 Log & Grow My Garden</button>
+    </div>
   </div>
 
-  <div id="gardenContent">
-    <div class="loading-state"><div class="spin">🌱</div><br>Loading your garden...</div>
-  </div>
-
-  <div class="install-tip" id="installTip">
-    <button class="tip-close" onclick="document.getElementById('installTip').style.display='none'">×</button>
-    <strong>📱 Add to your home screen!</strong><br>
-    <strong>iPhone:</strong> Tap Share → "Add to Home Screen"<br>
-    <strong>Android:</strong> Tap ⋮ menu → "Add to Home screen"
-  </div>
-
-  <div class="btn-row">
-    <button class="refresh-btn" id="refreshBtn">↻ Refresh garden</button>
+  <!-- Bottom nav -->
+  <div class="bottom-nav">
+    <button class="nav-btn active" id="nav-garden" onclick="switchTab('garden')">
+      <span class="nav-icon">🌿</span> My Garden
+    </button>
+    <button class="nav-btn" id="nav-log" onclick="switchTab('log')">
+      <span class="nav-icon">✏️</span> Log Ibadah
+    </button>
   </div>
 </div>
+<div class="toast" id="toast"></div>
 
 <script>
-  const API   = 'https://script.google.com/macros/s/AKfycbwNoIeJkygzl5DWAWKg1qKy2KuMynzPgoMW9SI9MYYFQkwyei-U0HLqRVxW4fdfTQX1/exec';
-  const NAMES = ['Aisha','Tazmina','Safiyyah','Fatima','Sofia','Nahya','Sitty'];
-  const DAYS  = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const API   = 'https://script.google.com/macros/s/AKfycbwNoIeJkygzl5DWAWKg1qKy2KuMynzPgoMW9SI9MYYFQkwyei-U0HLqRVxW4fdfTQX1/exec';
+const NAMES = ['Aisha','Aqeelah','Fatima','Nahya','Sabreen','Safiyyah','Sitty','Tazmina'];
+const DAYS  = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 
-  let currentName = 'Aisha';
-  let cache = {};
+let currentName = 'Aisha';
+let formName    = 'Aisha';
+let selectedType = null;
+let selectedFlowers = {};
+let checkedMorning = {};
+let checkedEvening = {};
+let cache = {};
 
-  function setupWeek() {
-    const now      = new Date();
-    const day      = now.getDay();
-    const todayIdx = (day === 0) ? 6 : day - 1;
-    const diff     = (day === 0) ? -6 : 1 - day;
-    const monday   = new Date(now); monday.setDate(now.getDate() + diff);
-    const sunday   = new Date(monday); sunday.setDate(monday.getDate() + 6);
-    const fmt = d => d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
-    document.getElementById('weekLabel').textContent = `${fmt(monday)} – ${fmt(sunday)}`;
-    const container = document.getElementById('dayDots');
-    DAYS.forEach((d, i) => {
-      const wrap = document.createElement('div'); wrap.className = 'day-dot';
-      const dot  = document.createElement('div');
-      dot.className = 'dot' + (i < todayIdx ? ' done':'') + (i === todayIdx ? ' today':'');
-      const lbl  = document.createElement('span'); lbl.textContent = d;
-      wrap.appendChild(dot); wrap.appendChild(lbl); container.appendChild(wrap);
-    });
+/* ── FORM DATA ── */
+const QURAN_PAGES_PLANTS = {
+  '2 pages':          { label:'🌱 Seedling (2 pages)', section:'Seedling', plants:[{v:'Sprout 1',e:'🌱'},{v:'Sprout 2',e:'🌿'},{v:'Sprout 3',e:'🍃'}], color:'#c8e6c9', colorLabel:'🌱 Pick a seedling' },
+  '4 pages':          { label:'🤍 White Flower (4 pages)', section:'whiteFlower', plants:[{v:'White Lilly',e:'🌼'},{v:'Lilly Of The Valley',e:'🌷'},{v:'Daisy',e:'🌸'}], color:'#f5f5f5', colorLabel:'🤍 Pick a white flower' },
+  '6 pages':          { label:'❤️ Red Flower (6 pages)', section:'redFlower', plants:[{v:'Hibiscus',e:'🌺'},{v:'Poppy',e:'🌸'},{v:'Roses',e:'🌹'}], color:'#ffcdd2', colorLabel:'❤️ Pick a red flower' },
+  '8 pages':          { label:'💛 Yellow Flower (8 pages)', section:'yellowFlower', plants:[{v:'Frangipani',e:'🌼'},{v:'Dandelion',e:'🌼'},{v:'Sunflower',e:'🌻'}], color:'#fff9c4', colorLabel:'💛 Pick a yellow flower' },
+  '10 pages or more': { label:'💜 Purple Flower (10+ pages)', section:'purpleFlower', plants:[{v:'Allium',e:'🪷'},{v:'Lillac',e:'🪷'},{v:'Orchid',e:'💐'}], color:'#e1bee7', colorLabel:'💜 Pick a purple flower' },
+};
+
+const MORNING_ADHKAR_LIST = [
+  'Surah Al-Fatiha','Ayat Al-Kursi','Surah Al-Ikhlas (3x)','Surah Al-Falaq (3x)','Surah An-Nas (3x)',
+  'Aṣbaḥnā wa aṣbaḥa-l-mulku li-llāhi...','Rabbi as\'aluka khayra ma fee hatha-alyawmi...','Rabbi a\'oothu bika minal-kasal...','Allâhumma bika asbahnâ...','Allahumma anta rabbi la ilaha illa ant...',
+  'Allahumma innee asbahtu oshhiduk... (4x)','Allahumma ma asbaha bi min ni\'matin...','Allahumma \'afini fi badani...','HasbiyAllahu laa ilaaha illa huwa... (7x)','Allahumma inni as\'alukal-\'afwa wal-\'afiyah...',
+  'Allah humma\'h fathny min bayne yaday...','Allahumma \'alimal-ghaybi washshahadah...','Bismillahil-lazee la ya-dur-ru... (3x)','Raditu Billahi Rabban... (3x)','Yā Ḥayyu yā Qayyūm...',
+  'Allahumma inni as-aluka khaira haazal yaum...','Asbahna \'ala fitrat-il-Islam...','Subhanallahi wa bihamdihi (100x)','Subhaanallaahi wa bihamdihi \'Adada khalqihi... (3x)',
+  'Allahumma inni as\'aluka \'ilman naafi\'an...','Astaghfirullaha wa atubu ilaihi','Audhu bi kalimati-llahi at-tammati... (3x)','Allahumma Salli \'ala Muhammadin...'
+];
+
+const EVENING_ADHKAR_LIST = [
+  'Surah Al-Fatiha','Ayat Al-Kursi','Amana Rasulu (Last 2 verses of Surah Al-Baqarah)','Surah Al-Ikhlas (3x)','Surah Al-Falaq (3x)','Surah An-Nas (3x)',
+  'Amsayna wa-amsal-mulku lillah...','Allahumma bika amsayna...','Allahumma anta rabbee la ilaha illa ant...','Allahumma innee amsaytu oshhiduk... (4x)',
+  'Allahumma ma amsa bee min ni\'Amatin...','Allahumma AAafinee fee badanee... (3x)','Allahumma innee a\'oothu bika minal-kufr...','Hasbiyal-lahu la ilaha illa huwa... (7x)',
+  'a\'oothu bikalimatil-lahit-tammati... (3x)','Allahumma innee as-alukal-\'afwa wal\'afiyah...','Allahumma \'alimal-ghaybi washshahadah...','Bismillahil-ladhi la yadurru ma\'as-mihi... (3x)',
+  'Raditu Billahi Rabban... (3x)','Ya Hayyu ya Qayyum...','Amṣaynā wa amṣa-l-mulku li-llāhi...','Amṣaynā `alā fiṭrati \'l-Islām...',
+  'Subhanallahi wa bihmdihi (100x)','La ilaha ill-Allah wahdahu la sharika lah... (100x)','Subhaanallaahi wa bihamdihi \'Adada khalqihi... (3x)',
+  'Allahumma inni as\'aluka \'ilman naafi\'an...','Allahumma Salli \'ala Muhammadin...','Allahumma barik \'ala Muhammadin...'
+];
+
+const MORNING_FLOWERS = [{v:'Hyacinths',e:'🌿'},{v:'Tulips',e:'🌷'},{v:'Latana',e:'🌻'},{v:'Bougainvillea',e:'🌺'},{v:'Water Lilly',e:'🪷'}];
+const EVENING_FLOWERS = [{v:'Red Tulips',e:'🌷'},{v:'Amaryllis',e:'🌺'},{v:'Marigold',e:'🌼'},{v:'Cactus Flower',e:'🌵'},{v:'Anthurium',e:'🌺'}];
+const TAHAJJUD_FLOWERS= [{v:'Jasmine',e:'🌸'},{v:'Chrysanthemum',e:'🌹'},{v:'Calla Lillies',e:'🌷'},{v:'Geranium',e:'🌿'}];
+
+const HIFZ_PLANTS = {
+  '1 Ayat':         { label:'🌿 1 Ayat — pick a plant', plants:[{v:'Bamboo',e:'🎋'},{v:'Croton Plant',e:'🌿'},{v:'Elephant Ear',e:'🌿'}] },
+  '2 Ayats':        { label:'🍄 2 Ayats — pick a plant', plants:[{v:'Fly Agaric',e:'🍄'},{v:'Pitcher Plant',e:'🌿'},{v:'Milk Thistle',e:'🌸'}] },
+  '3 Ayats':        { label:'🌳 3 Ayats — pick a tree', plants:[{v:'Birch Tree',e:'🌲'},{v:'Cacao Tree',e:'🌳'},{v:'Pine Tree',e:'🌲'}] },
+  '4 Ayats':        { label:'🌸 4 Ayats — pick a flower', plants:[{v:'Cherry Blossom',e:'🌸'},{v:'Periwrinkle',e:'🌸'},{v:'Oleander',e:'🌸'}] },
+  '5 Ayats or more':{ label:'🌼 5+ Ayats — pick a flower', plants:[{v:'Snapdragons',e:'🌿'},{v:'Petunia',e:'🌸'},{v:'Pompom Dahlia',e:'🌼'}] },
+};
+
+/* ── PLANT VISUALS ── */
+const PLANT_COLORS = {
+  'sprout':'#c8e6c9','bamboo':'#e8f5e9','croton':'#dcedc8','elephant':'#c8e6c9',
+  'fly agaric':'#ffcdd2','pitcher':'#c8e6c9','milk thistle':'#e1bee7',
+  'birch':'#e8f5e9','cacao':'#efebe9','pine':'#e8f5e9',
+  'cherry blossom':'#fce4ec','periwinkle':'#ede7f6','oleander':'#fce4ec',
+  'snapdragon':'#dcedc8','petunia':'#fce4ec','pompom':'#fffde7',
+  'roses':'#ffcdd2','hibiscus':'#f8bbd0','sunflower':'#fff9c4','orchid':'#e1bee7',
+  'daisy':'#fffde7','poppy':'#fce4ec','lily':'#f8bbd0','allium':'#ede7f6',
+  'tulips':'#fce4ec','water lill':'#e3f2fd','hyacinths':'#e8f5e9',
+  'bougainvillea':'#fce4ec','latana':'#fff8e1','jasmine':'#f5f5f5',
+  'marigold':'#fff8e1','amaryllis':'#ffcdd2','red tulips':'#ffcdd2',
+  'cactus':'#e8f5e9','chrysanthemum':'#ffccbc','calla':'#f5f5f5',
+  'geranium':'#c8e6c9','frangipani':'#fff9c4','dandelion':'#fff9c4',
+  'anthurium':'#ffcdd2','lilac':'#ede7f6','lillac':'#ede7f6',
+  'white lill':'#fffde7','lilly of':'#e8f5e9','default':'#e8f5e9'
+};
+const PLANT_EMOJI = {
+  'sprout':'🌱','bamboo':'🎋','croton':'🌿','elephant ear':'🌿',
+  'fly agaric':'🍄','pitcher':'🌿','milk thistle':'🌸',
+  'birch':'🌲','cacao':'🌳','pine':'🌲',
+  'cherry blossom':'🌸','periwinkle':'🌸','oleander':'🌸',
+  'snapdragon':'🌿','petunia':'🌸','pompom':'🌼',
+  'roses':'🌹','hibiscus':'🌺','sunflower':'🌻','orchid':'💐',
+  'daisy':'🌼','poppy':'🌸','lily':'🌷','allium':'🪷',
+  'tulips':'🌷','water lill':'🪷','hyacinths':'🌿',
+  'bougainvillea':'🌺','latana':'🌻','jasmine':'🌸',
+  'marigold':'🌼','amaryllis':'🌺','red tulips':'🌷',
+  'cactus':'🌵','chrysanthemum':'🌹','calla':'🌷',
+  'geranium':'🌿','frangipani':'🌼','dandelion':'🌼',
+  'anthurium':'🌺','lilac':'🪷','lillac':'🪷',
+  'white lill':'🌼','lilly of':'🌷','default':'🌿'
+};
+
+function getAttr(map, name) {
+  if (!name) return map['default'];
+  const k = name.toLowerCase().trim();
+  for (const [key, val] of Object.entries(map)) {
+    if (key !== 'default' && k.includes(key)) return val;
   }
+  return map['default'];
+}
 
-  const PLANT_COLORS = {
-    'sprout':'#c8e6c9','roses':'#ffcdd2','hibiscus':'#f8bbd0','sunflower':'#fff9c4',
-    'orchid':'#e1bee7','daisy':'#fffde7','poppy':'#fce4ec','lily':'#f8bbd0',
-    'allium':'#ede7f6','tulips':'#fce4ec','water lill':'#e3f2fd',
-    'hyacinths':'#e8f5e9','bougainvillea':'#fce4ec','latana':'#fff8e1',
-    'petunia':'#fce4ec','jasmine':'#f5f5f5','marigold':'#fff8e1','amaryllis':'#ffcdd2',
-    'red tulips':'#ffcdd2','cactus flower':'#e8f5e9','geranium':'#c8e6c9',
-    'pompom dahlia':'#fffde7','snapdragons':'#dcedc8','chrysanthemum':'#ffccbc',
-    'cherry blossom':'#fce4ec','cacao tree':'#efebe9','periwinkle':'#ede7f6',
-    'calla lill':'#f5f5f5','birch tree':'#e8f5e9','pine tree':'#e8f5e9',
-    'bamboo':'#e8f5e9','oleander':'#fce4ec','lilac':'#ede7f6','lillac':'#ede7f6',
-    'white lill':'#fffde7','lilly of the valley':'#e8f5e9','lily of the valley':'#e8f5e9',
-    'frangipani':'#fff9c4','elephant ear':'#e8f5e9','dandelion':'#fff9c4',
-    'anthurium':'#ffcdd2','default':'#e8f5e9'
-  };
-  const PLANT_EMOJI = {
-    'sprout':'🌱','roses':'🌹','hibiscus':'🌺','sunflower':'🌻','orchid':'💐',
-    'daisy':'🌼','poppy':'🌸','lily':'🌷','allium':'🪷','tulips':'🌷',
-    'water lill':'🪷','hyacinths':'🌿','bougainvillea':'🌺','latana':'🌻',
-    'petunia':'🌸','jasmine':'🌸','marigold':'🌼','amaryllis':'🌺',
-    'red tulips':'🌷','cactus flower':'🌵','geranium':'🌿','pompom dahlia':'🌼',
-    'snapdragons':'🌿','chrysanthemum':'🌹','cherry blossom':'🌸','cacao tree':'🌳',
-    'periwinkle':'🌸','calla lill':'🌷','birch tree':'🌲','pine tree':'🌲',
-    'bamboo':'🎋','oleander':'🌸','lilac':'🪷','lillac':'🪷',
-    'white lill':'🌼','lilly of the valley':'🌷','lily of the valley':'🌷',
-    'frangipani':'🌼','elephant ear':'🌿','dandelion':'🌼','anthurium':'🌺',
-    'default':'🌿'
-  };
+/* ── TAB SWITCHING ── */
+function switchTab(tab) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  document.getElementById('nav-' + tab).classList.add('active');
+}
 
-  function getAttr(map, name) {
-    if (!name) return map['default'];
-    const k = name.toLowerCase().trim();
-    for (const [key, val] of Object.entries(map)) {
-      if (key !== 'default' && k.includes(key)) return val;
-    }
-    return map['default'];
-  }
-
-  function countPlants(entries, field) {
-    const map = {};
-    entries.forEach(e => {
-      const v = (e[field] || '').toString().trim();
-      if (v) map[v] = (map[v] || 0) + 1;
-    });
-    return Object.entries(map).map(([name, count]) => ({
-      name, count, emoji: getAttr(PLANT_EMOJI, name), color: getAttr(PLANT_COLORS, name)
-    }));
-  }
-
-  function plantHTML(p) {
-    return `<div class="plant-item">
-      <div class="plant-icon" style="background:${p.color}">${p.emoji}</div>
-      <div class="plant-name">${p.name}</div>
-      <div class="plant-count">×${p.count}</div>
-    </div>`;
-  }
-
-  function renderGarden(plants, msg) {
-    if (!plants.length) return `<div class="empty-state"><span>🌱</span>${msg}</div>`;
-    return '<div class="plant-grid">' + plants.map(plantHTML).join('') + '</div>';
-  }
-
-  function buildContent(name, entries) {
-    const quranE   = entries.filter(e => e.ibadahType === 'Quran'           || (!e.ibadahType && (e.pages || e.seedling)));
-    const morningE = entries.filter(e => e.ibadahType === 'Morning Adhkar');
-    const eveningE = entries.filter(e => e.ibadahType === 'Evening Adhkar');
-    const hifzE    = entries.filter(e => e.ibadahType === 'Hifz');
-    const tahajE   = entries.filter(e => e.ibadahType === 'Tahajjud');
-
-    const quranPlants   = [...countPlants(quranE,'seedling'),...countPlants(quranE,'whiteFlower'),...countPlants(quranE,'redFlower'),...countPlants(quranE,'yellowFlower'),...countPlants(quranE,'purpleFlower')];
-    const morningPlants = countPlants(morningE,'adhkarFlower');
-    const eveningPlants = countPlants(eveningE,'eveningFlower');
-    const hifzPlants    = countPlants(hifzE,   'hifzPlant');
-    const tahajPlants   = countPlants(tahajE,  'tahajjudFlower');
-
-    const qCount = quranE.length, mCount = morningE.length, eCount = eveningE.length;
-    const hCount = hifzE.length,  tCount = tahajE.length;
-    const totalP = [...quranPlants,...morningPlants,...eveningPlants,...hifzPlants,...tahajPlants].reduce((s,p)=>s+p.count,0);
-
-    document.getElementById('statsRow').innerHTML = `
-      <div class="stat-card"><div class="stat-num">${totalP}</div><div class="stat-label">Plants this week</div></div>
-      <div class="stat-card"><div class="stat-num">${qCount}</div><div class="stat-label">Quran sessions</div></div>
-      <div class="stat-card"><div class="stat-num">${mCount+eCount}</div><div class="stat-label">Adhkar done</div></div>`;
-
-    const progRows = [
-      {icon:'📖', label:'Quran recitation',   val:qCount, color:'#7aad8a'},
-      {icon:'🌅', label:'Morning Adhkar',      val:mCount, color:'#f9c74f'},
-      {icon:'🌙', label:'Evening Adhkar',      val:eCount, color:'#7ab8d4'},
-      {icon:'📿', label:'Hifz (memorisation)', val:hCount, color:'#c4a5d8'},
-      {icon:'✨', label:'Tahajjud prayer',     val:tCount, color:'#d4a5b8'},
-    ];
-
-    document.getElementById('gardenContent').innerHTML = `
-      <div class="garden-section">
-        <div class="section-title">Quran Garden</div>
-        <div class="garden-bed">${renderGarden(quranPlants,'No Quran entries yet this week — keep going!')}</div>
-      </div>
-      <div class="soil-strip"></div>
-      <div class="garden-section">
-        <div class="section-title">Morning Adhkar Garden</div>
-        <div class="garden-bed">${renderGarden(morningPlants,'No morning adhkar entries yet this week.')}</div>
-      </div>
-      <div class="soil-strip"></div>
-      <div class="garden-section">
-        <div class="section-title">Evening Adhkar Garden</div>
-        <div class="garden-bed">${renderGarden(eveningPlants,'No evening adhkar entries yet this week.')}</div>
-      </div>
-      <div class="soil-strip"></div>
-      <div class="garden-section">
-        <div class="section-title">Hifz Garden</div>
-        <div class="garden-bed">${renderGarden(hifzPlants,'No hifz entries yet this week.')}</div>
-      </div>
-      <div class="soil-strip"></div>
-      <div class="garden-section">
-        <div class="section-title">Tahajjud Garden</div>
-        <div class="garden-bed">${renderGarden(tahajPlants,'No tahajjud entries yet this week.')}</div>
-      </div>
-      <div class="soil-strip"></div>
-      <div class="progress-section">
-        <div class="section-title">This week's progress</div>
-        <div class="progress-card">
-          ${progRows.map(r=>`
-            <div class="progress-row">
-              <span class="prog-icon">${r.icon}</span>
-              <span class="prog-label">${r.label}</span>
-              <div class="prog-bar-wrap"><div class="prog-bar" style="width:${Math.round((Math.min(r.val,7)/7)*100)}%;background:${r.color}"></div></div>
-              <span class="prog-count">${r.val}/7</span>
-            </div>`).join('')}
-        </div>
-      </div>
-      <div class="badge-section">
-        <div class="section-title">This week's achievements</div>
-        <div class="badge-grid">
-          ${[
-            {e:'⭐',t:'Quran Streak',     s:'5+ sessions this week',  earned:qCount>=5},
-            {e:'🌅',t:'Morning Devotee',  s:'5+ morning adhkar',      earned:mCount>=5},
-            {e:'🌙',t:'Evening Devotee',  s:'5+ evening adhkar',      earned:eCount>=5},
-            {e:'📿',t:'Memoriser',        s:'3+ hifz sessions',       earned:hCount>=3},
-            {e:'✨',t:'Night Worshipper', s:'3+ tahajjud nights',     earned:tCount>=3},
-            {e:'🌸',t:'Full Bloom',       s:'10+ plants grown',       earned:totalP>=10},
-          ].map(b=>`
-            <div class="badge-card ${b.earned?'earned':'locked'}">
-              <div class="badge-icon">${b.e}</div>
-              <div><div class="badge-title">${b.t}</div><div class="badge-sub">${b.s}</div></div>
-            </div>`).join('')}
-        </div>
-      </div>`;
-  }
-
-  async function loadMember(name, forceRefresh) {
-    currentName = name;
-    document.querySelectorAll('.name-btn').forEach(b => b.classList.toggle('active', b.dataset.name === name));
-    if (cache[name] && !forceRefresh) { buildContent(name, cache[name]); return; }
-    document.getElementById('gardenContent').innerHTML =
-      `<div class="loading-state"><div class="spin">🌱</div><br>Loading ${name}'s garden this week...</div>`;
-    document.getElementById('statsRow').innerHTML =
-      '<div class="stat-card"><div class="stat-num">...</div><div class="stat-label">Loading</div></div>'.repeat(3);
-    try {
-      const res  = await fetch(API + '?name=' + encodeURIComponent(name));
-      const json = await res.json();
-      cache[name] = json.entries || [];
-      buildContent(name, cache[name]);
-    } catch (err) {
-      document.getElementById('gardenContent').innerHTML =
-        `<div class="error-state">⚠️ Could not load data.<br>Check your internet connection.<br><small style="opacity:0.6">${err.message}</small></div>`;
-    }
-  }
-
-  const sel = document.getElementById('nameSelector');
-  NAMES.forEach(n => {
-    const b = document.createElement('button');
-    b.className = 'name-btn'; b.dataset.name = n; b.textContent = n;
-    b.onclick = () => loadMember(n);
-    sel.appendChild(b);
+/* ── WEEK SETUP ── */
+function setupWeek() {
+  const now = new Date(), day = now.getDay();
+  const todayIdx = (day===0)?6:day-1;
+  const diff = (day===0)?-6:1-day;
+  const monday = new Date(now); monday.setDate(now.getDate()+diff);
+  const sunday = new Date(monday); sunday.setDate(monday.getDate()+6);
+  const fmt = d => d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  document.getElementById('weekLabel').textContent = `${fmt(monday)} – ${fmt(sunday)}`;
+  const container = document.getElementById('dayDots');
+  DAYS.forEach((d,i) => {
+    const wrap = document.createElement('div'); wrap.className='day-dot';
+    const dot  = document.createElement('div');
+    dot.className='dot'+(i<todayIdx?' done':'')+(i===todayIdx?' today':'');
+    const lbl  = document.createElement('span'); lbl.textContent=d;
+    wrap.appendChild(dot); wrap.appendChild(lbl); container.appendChild(wrap);
   });
+  const dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  document.getElementById('field-day').value = dayNames[now.getDay()]||'';
+}
 
-  document.getElementById('refreshBtn').onclick = () => loadMember(currentName, true);
+/* ── GARDEN RENDERING ── */
+function countPlants(entries, field) {
+  const map = {};
+  entries.forEach(e => {
+    const v = (e[field]||'').toString().trim();
+    if (v) map[v] = (map[v]||0)+1;
+  });
+  return Object.entries(map).map(([name,count]) => ({
+    name, count, emoji:getAttr(PLANT_EMOJI,name), color:getAttr(PLANT_COLORS,name)
+  }));
+}
 
-  setupWeek();
-  loadMember('Aisha');
+function plantHTML(p) {
+  return `<div class="plant-item">
+    <div class="plant-icon" style="background:${p.color}">${p.emoji}</div>
+    <div class="plant-name">${p.name}</div>
+    <div class="plant-count">×${p.count}</div>
+  </div>`;
+}
+
+function renderGarden(plants, msg) {
+  if (!plants.length) return `<div class="empty-state"><span>🌱</span>${msg}</div>`;
+  return '<div class="plant-grid">'+plants.map(plantHTML).join('')+'</div>';
+}
+
+function buildContent(name, entries) {
+  const quranE   = entries.filter(e => e.ibadahType==='Quran'||((!e.ibadahType)&&(e.pages||e.seedling)));
+  const morningE = entries.filter(e => e.ibadahType==='Morning Adhkar');
+  const eveningE = entries.filter(e => e.ibadahType==='Evening Adhkar');
+  const hifzE    = entries.filter(e => e.ibadahType==='Hifz');
+  const tahajE   = entries.filter(e => e.ibadahType==='Tahajjud');
+
+  const quranPlants = [
+    ...countPlants(quranE,'seedling'),
+    ...countPlants(quranE,'whiteFlower'),
+    ...countPlants(quranE,'redFlower'),
+    ...countPlants(quranE,'yellowFlower'),
+    ...countPlants(quranE,'purpleFlower')
+  ];
+  const morningPlants = countPlants(morningE,'adhkarFlower');
+  const eveningPlants = countPlants(eveningE,'eveningFlower');
+  const hifzPlants    = countPlants(hifzE,   'hifzPlant');
+  const tahajPlants   = countPlants(tahajE,  'tahajjudFlower');
+
+  const qC=quranE.length, mC=morningE.length, eC=eveningE.length, hC=hifzE.length, tC=tahajE.length;
+  const totalP=[...quranPlants,...morningPlants,...eveningPlants,...hifzPlants,...tahajPlants].reduce((s,p)=>s+p.count,0);
+
+  document.getElementById('statsRow').innerHTML=`
+    <div class="stat-card"><div class="stat-num">${totalP}</div><div class="stat-label">Plants this week</div></div>
+    <div class="stat-card"><div class="stat-num">${qC}</div><div class="stat-label">Quran sessions</div></div>
+    <div class="stat-card"><div class="stat-num">${mC+eC}</div><div class="stat-label">Adhkar done</div></div>`;
+
+  const progRows=[
+    {icon:'📖',label:'Quran recitation',  val:qC,color:'#7aad8a'},
+    {icon:'🌅',label:'Morning Adhkar',    val:mC,color:'#f9c74f'},
+    {icon:'🌙',label:'Evening Adhkar',    val:eC,color:'#7ab8d4'},
+    {icon:'📿',label:'Hifz memorisation', val:hC,color:'#c4a5d8'},
+    {icon:'✨',label:'Tahajjud prayer',   val:tC,color:'#d4a5b8'},
+  ];
+
+  document.getElementById('gardenContent').innerHTML=`
+    <div class="garden-section"><div class="section-title">📖 Quran Garden</div>
+      <div class="garden-bed">${renderGarden(quranPlants,'No Quran entries yet this week!')}</div></div>
+    <div class="soil-strip"></div>
+    <div class="garden-section"><div class="section-title">🌅 Morning Adhkar Garden</div>
+      <div class="garden-bed">${renderGarden(morningPlants,'No morning adhkar yet this week.')}</div></div>
+    <div class="soil-strip"></div>
+    <div class="garden-section"><div class="section-title">🌙 Evening Adhkar Garden</div>
+      <div class="garden-bed">${renderGarden(eveningPlants,'No evening adhkar yet this week.')}</div></div>
+    <div class="soil-strip"></div>
+    <div class="garden-section"><div class="section-title">📿 Hifz Garden</div>
+      <div class="garden-bed">${renderGarden(hifzPlants,'No hifz entries yet this week.')}</div></div>
+    <div class="soil-strip"></div>
+    <div class="garden-section"><div class="section-title">✨ Tahajjud Garden</div>
+      <div class="garden-bed">${renderGarden(tahajPlants,'No tahajjud entries yet this week.')}</div></div>
+    <div class="soil-strip"></div>
+    <div class="progress-section">
+      <div class="section-title">This week's progress</div>
+      <div class="progress-card">
+        ${progRows.map(r=>`<div class="progress-row">
+          <span class="prog-icon">${r.icon}</span>
+          <span class="prog-label">${r.label}</span>
+          <div class="prog-bar-wrap"><div class="prog-bar" style="width:${Math.round((Math.min(r.val,7)/7)*100)}%;background:${r.color}"></div></div>
+          <span class="prog-count">${r.val}/7</span>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="badge-section">
+      <div class="section-title">This week's achievements</div>
+      <div class="badge-grid">
+        ${[
+          {e:'⭐',t:'Quran Streak',     s:'5+ sessions',    earned:qC>=5},
+          {e:'🌅',t:'Morning Devotee',  s:'5+ mornings',    earned:mC>=5},
+          {e:'🌙',t:'Evening Devotee',  s:'5+ evenings',    earned:eC>=5},
+          {e:'📿',t:'Memoriser',        s:'3+ hifz sessions',earned:hC>=3},
+          {e:'✨',t:'Night Worshipper', s:'3+ tahajjud',    earned:tC>=3},
+          {e:'🌸',t:'Full Bloom',       s:'10+ plants grown',earned:totalP>=10},
+        ].map(b=>`<div class="badge-card ${b.earned?'earned':'locked'}">
+          <div class="badge-icon">${b.e}</div>
+          <div><div class="badge-title">${b.t}</div><div class="badge-sub">${b.s}</div></div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+async function loadMember(name, forceRefresh) {
+  currentName = name;
+  document.querySelectorAll('#nameSelector .name-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.name===name));
+  if (cache[name] && !forceRefresh) { buildContent(name, cache[name]); return; }
+  document.getElementById('gardenContent').innerHTML=
+    `<div class="loading-state"><div class="spin">🌱</div><br>Loading ${name}'s garden...</div>`;
+  document.getElementById('statsRow').innerHTML=
+    '<div class="stat-card"><div class="stat-num">...</div><div class="stat-label">Loading</div></div>'.repeat(3);
+  try {
+    const res  = await fetch(API+'?name='+encodeURIComponent(name));
+    const json = await res.json();
+    cache[name] = json.entries||[];
+    buildContent(name, cache[name]);
+  } catch(err) {
+    document.getElementById('gardenContent').innerHTML=
+      `<div class="error-state">⚠️ Could not load data.<br><small>${err.message}</small></div>`;
+  }
+}
+
+/* ── FORM LOGIC ── */
+function buildChips(containerId, items, fieldKey) {
+  const container = document.getElementById(containerId);
+  container.innerHTML='';
+  items.forEach(item => {
+    const chip = document.createElement('div');
+    chip.className='flower-chip';
+    chip.textContent = item.e + ' ' + item.v;
+    chip.onclick = () => {
+      container.querySelectorAll('.flower-chip').forEach(c=>c.classList.remove('selected'));
+      chip.classList.add('selected');
+      selectedFlowers[fieldKey] = item.v;
+    };
+    container.appendChild(chip);
+  });
+}
+
+function buildChecklist(containerId, items, stateObj) {
+  const container = document.getElementById(containerId);
+  container.innerHTML='';
+  items.forEach((item,i) => {
+    stateObj[i] = false;
+    const row = document.createElement('div'); row.className='checklist-row';
+    row.onclick = () => {
+      stateObj[i] = !stateObj[i];
+      box.className='check-box'+(stateObj[i]?' checked':'');
+      box.textContent = stateObj[i]?'✓':'';
+    };
+    const box = document.createElement('div'); box.className='check-box';
+    const lbl = document.createElement('span'); lbl.className='check-label'; lbl.textContent=item;
+    row.appendChild(box); row.appendChild(lbl);
+    container.appendChild(row);
+  });
+}
+
+function updateQuranPlants() {
+  const pages = document.getElementById('field-pages').value;
+  const group = document.getElementById('quran-plants-group');
+  if (!pages || !QURAN_PAGES_PLANTS[pages]) { group.style.display='none'; return; }
+  const data = QURAN_PAGES_PLANTS[pages];
+  document.getElementById('quran-color-label').textContent = data.colorLabel;
+  document.getElementById('quran-color-label').style.color = '#555';
+  group.style.display='block';
+  delete selectedFlowers['seedling'];
+  delete selectedFlowers['whiteFlower'];
+  delete selectedFlowers['redFlower'];
+  delete selectedFlowers['yellowFlower'];
+  delete selectedFlowers['purpleFlower'];
+  buildChips('quran-flowers', data.plants, data.section);
+}
+
+function updateHifzPlants() {
+  const ayats = document.getElementById('field-hifz-ayats').value;
+  const group = document.getElementById('hifz-plants-group');
+  if (!ayats || !HIFZ_PLANTS[ayats]) { group.style.display='none'; return; }
+  const data = HIFZ_PLANTS[ayats];
+  document.getElementById('hifz-plant-label').textContent = data.label;
+  group.style.display='block';
+  delete selectedFlowers['hifzPlant'];
+  buildChips('hifz-flowers', data.plants, 'hifzPlant');
+}
+
+function selectType(card) {
+  document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('active'));
+  card.classList.add('active');
+  selectedType = card.dataset.type;
+  selectedFlowers = {};
+  checkedMorning = {};
+  checkedEvening = {};
+  ['quran','morning','evening','hifz','tahajjud'].forEach(s =>
+    document.getElementById('sec-'+s).classList.remove('visible'));
+
+  if (selectedType==='Quran') {
+    document.getElementById('sec-quran').classList.add('visible');
+    document.getElementById('quran-plants-group').style.display='none';
+    document.getElementById('field-pages').value='';
+  } else if (selectedType==='Morning Adhkar') {
+    document.getElementById('sec-morning').classList.add('visible');
+    buildChecklist('morning-checklist', MORNING_ADHKAR_LIST, checkedMorning);
+    buildChips('morning-flowers', MORNING_FLOWERS, 'adhkarFlower');
+  } else if (selectedType==='Evening Adhkar') {
+    document.getElementById('sec-evening').classList.add('visible');
+    buildChecklist('evening-checklist', EVENING_ADHKAR_LIST, checkedEvening);
+    buildChips('evening-flowers', EVENING_FLOWERS, 'eveningFlower');
+  } else if (selectedType==='Hifz') {
+    document.getElementById('sec-hifz').classList.add('visible');
+    document.getElementById('hifz-plants-group').style.display='none';
+    document.getElementById('field-hifz-ayats').value='';
+  } else if (selectedType==='Tahajjud') {
+    document.getElementById('sec-tahajjud').classList.add('visible');
+    buildChips('tahajjud-flowers', TAHAJJUD_FLOWERS, 'tahajjudFlower');
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+async function submitForm() {
+  if (!selectedType) { showToast('⚠️ Please select what to track!'); return; }
+  if (!document.getElementById('field-day').value) { showToast('⚠️ Please select a day!'); return; }
+
+  const pages = document.getElementById('field-pages').value;
+  const pagesData = QURAN_PAGES_PLANTS[pages] || {};
+
+  const morningDone = MORNING_ADHKAR_LIST.filter((_,i)=>checkedMorning[i]).join('; ');
+  const eveningDone = EVENING_ADHKAR_LIST.filter((_,i)=>checkedEvening[i]).join('; ');
+
+  const payload = {
+    name:           formName,
+    day:            document.getElementById('field-day').value,
+    ibadahType:     selectedType,
+    pages:          pages,
+    seedling:       pagesData.section==='Seedling'    ? (selectedFlowers['Seedling']||'') : '',
+    whiteFlower:    pagesData.section==='whiteFlower'  ? (selectedFlowers['whiteFlower']||'') : '',
+    redFlower:      pagesData.section==='redFlower'    ? (selectedFlowers['redFlower']||'') : '',
+    yellowFlower:   pagesData.section==='yellowFlower' ? (selectedFlowers['yellowFlower']||'') : '',
+    purpleFlower:   pagesData.section==='purpleFlower' ? (selectedFlowers['purpleFlower']||'') : '',
+    adhkarMorning:  morningDone,
+    adhkarFlower:   selectedFlowers['adhkarFlower']||'',
+    adhkarEvening:  eveningDone,
+    eveningFlower:  selectedFlowers['eveningFlower']||'',
+    hifzAyats:      document.getElementById('field-hifz-ayats')?.value||'',
+    hifzPlant:      selectedFlowers['hifzPlant']||'',
+    tahajjudFlower: selectedFlowers['tahajjudFlower']||'',
+  };
+
+  // Fix seedling field key
+  if (pagesData.section==='Seedling') {
+    payload.seedling = selectedFlowers['Seedling']||'';
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled=true; btn.textContent='🌱 Saving...';
+
+  try {
+    await fetch(API, {
+      method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    });
+    showToast('🌸 MashaAllah! Ibadah logged!');
+    // Reset
+    selectedType=null; selectedFlowers={}; checkedMorning={}; checkedEvening={};
+    document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('active'));
+    ['quran','morning','evening','hifz','tahajjud'].forEach(s=>
+      document.getElementById('sec-'+s).classList.remove('visible'));
+    // Refresh garden after 2s
+    setTimeout(async()=>{
+      delete cache[formName];
+      currentName=formName;
+      await loadMember(formName,true);
+      switchTab('garden');
+      document.querySelectorAll('#nameSelector .name-btn').forEach(b=>
+        b.classList.toggle('active',b.dataset.name===formName));
+    },2000);
+  } catch(err) {
+    showToast('⚠️ Could not save. Check your connection.');
+  }
+  btn.disabled=false; btn.textContent='🌱 Log & Grow My Garden';
+}
+
+/* ── INIT ── */
+const sel = document.getElementById('nameSelector');
+NAMES.forEach(n=>{
+  const b=document.createElement('button');
+  b.className='name-btn'; b.dataset.name=n; b.textContent=n;
+  b.onclick=()=>loadMember(n); sel.appendChild(b);
+});
+
+const fsel=document.getElementById('formNameSelector');
+NAMES.forEach(n=>{
+  const b=document.createElement('button');
+  b.className='form-name-btn'; b.dataset.name=n; b.textContent=n;
+  if(n===formName) b.classList.add('active');
+  b.onclick=()=>{
+    formName=n;
+    document.querySelectorAll('.form-name-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+  };
+  fsel.appendChild(b);
+});
+
+document.getElementById('refreshBtn').onclick=()=>loadMember(currentName,true);
+setupWeek();
+loadMember('Aisha');
 </script>
 </body>
 </html>
