@@ -15,6 +15,24 @@
     :root{--sage:#4a7c59;--sage-light:#7aad8a;--sage-pale:#e8f2eb;--cream:#fdf8f0;--leaf:#2d5a3d}
     html,body{font-family:'Nunito',sans-serif;background:var(--cream);min-height:100vh;-webkit-tap-highlight-color:transparent}
     .app{max-width:430px;margin:0 auto;min-height:100vh;background:var(--cream);position:relative;overflow-x:hidden;padding-bottom:80px}
+
+    /* ── DESKTOP LAYOUT ── */
+    @media(min-width:768px){
+      .app{max-width:100%;display:grid;grid-template-columns:380px 1fr;grid-template-rows:auto 1fr;min-height:100vh;padding-bottom:0}
+      .sky-bg{grid-column:1;grid-row:1/3}
+      .header{grid-column:1;grid-row:1}
+      .bottom-nav{position:sticky;bottom:0;left:0;max-width:380px;transform:none;grid-column:1;z-index:10}
+      .tab-panel{grid-column:1}
+      .tab-panel#panel-log{grid-column:2;grid-row:1/3;display:block!important;overflow-y:auto;max-height:100vh;border-left:1px solid #e0eed8;background:var(--cream)}
+      .tab-panel#panel-garden{grid-column:1;grid-row:2}
+      .form-wrap{padding:40px 32px 40px}
+      .ibadah-type-grid{grid-template-columns:1fr 1fr 1fr}
+      .flower-grid{gap:10px}
+      .checklist-scroll{max-height:240px}
+      .nav-btn#nav-log{display:none}
+      .desktop-log-header{display:block!important}
+    }
+    .desktop-log-header{display:none;padding:24px 32px 0;font-family:'Lora',serif;font-size:20px;color:var(--leaf)}
     .sky-bg{position:absolute;top:0;left:0;right:0;height:220px;background:linear-gradient(180deg,#c8e6f5 0%,#d4ecd4 40%,#e8f2eb 70%,#fdf8f0 100%);z-index:0}
 
     /* Header */
@@ -192,13 +210,13 @@
 
   <!-- LOG IBADAH TAB -->
   <div class="tab-panel" id="panel-log">
+    <div class="desktop-log-header">✏️ Log Your Ibadah</div>
     <div class="form-wrap">
 
       <div class="form-section visible">
         <div class="form-section-title">🌸 Who is logging?</div>
         <div class="form-group">
           <select class="form-select" id="formNameSelector" onchange="formName=this.value">
-            <option value="">Select your name...</option>
           </select>
         </div>
       </div>
@@ -330,16 +348,48 @@
 
 <script>
 const API   = 'https://script.google.com/macros/s/AKfycbwNoIeJkygzl5DWAWKg1qKy2KuMynzPgoMW9SI9MYYFQkwyei-U0HLqRVxW4fdfTQX1/exec';
-const NAMES = ['Aisha','Aqeelah','Fatima','Nahya','Sabreen','Safiyyah','Sitty','Tazmina'];
 const DAYS  = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 
-let currentName = 'Aisha';
-let formName    = 'Aisha';
+let currentName = '';
+let formName    = '';
 let selectedType = null;
 let selectedFlowers = {};
 let checkedMorning = {};
 let checkedEvening = {};
 let cache = {};
+
+async function loadNames() {
+  try {
+    const res  = await fetch(API + '?action=members');
+    const json = await res.json();
+    const names = json.names || [];
+
+    // Garden name buttons
+    const sel = document.getElementById('nameSelector');
+    sel.innerHTML = '';
+    names.forEach(n => {
+      const b = document.createElement('button');
+      b.className = 'name-btn'; b.dataset.name = n; b.textContent = n;
+      b.onclick = () => loadMember(n);
+      sel.appendChild(b);
+    });
+
+    // Form name dropdown
+    const fsel = document.getElementById('formNameSelector');
+    fsel.innerHTML = '<option value="">Select your name...</option>';
+    names.forEach(n => {
+      const opt = document.createElement('option');
+      opt.value = n; opt.textContent = n;
+      fsel.appendChild(opt);
+    });
+
+    // Load first member
+    if (names.length > 0) loadMember(names[0]);
+  } catch(err) {
+    document.getElementById('gardenContent').innerHTML =
+      `<div class="error-state">⚠️ Could not load members.<br><small>${err.message}</small></div>`;
+  }
+}
 
 /* ── FORM DATA ── */
 const QURAN_PAGES_PLANTS = {
@@ -786,24 +836,9 @@ async function submitForm() {
 }
 
 /* ── INIT ── */
-const sel = document.getElementById('nameSelector');
-NAMES.forEach(n=>{
-  const b=document.createElement('button');
-  b.className='name-btn'; b.dataset.name=n; b.textContent=n;
-  b.onclick=()=>loadMember(n); sel.appendChild(b);
-});
-
-const fsel=document.getElementById('formNameSelector');
-NAMES.forEach(n=>{
-  const opt=document.createElement('option');
-  opt.value=n; opt.textContent=n;
-  if(n===formName) opt.selected=true;
-  fsel.appendChild(opt);
-});
-
-document.getElementById('refreshBtn').onclick=()=>loadMember(currentName,true);
-setupWeek();
-loadMember('Aisha');
+  document.getElementById('refreshBtn').onclick = () => loadMember(currentName, true);
+  setupWeek();
+  loadNames();
 </script>
 </body>
 </html>
