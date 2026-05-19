@@ -6,110 +6,96 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="SQC Garden">
-  <meta name="theme-color" content="#4a7c59">
-  <title>Sisters Quran Club 🌸</title>
+  <meta name="theme-color" content="#c4748a">
+  <title>SQC Ibadah Garden 🌸</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    :root{--sage:#4a7c59;--sage-light:#7aad8a;--sage-pale:#e8f2eb;--cream:#fdf8f0;--leaf:#2d5a3d}
+    :root{
+      --rose:#c4748a;--rose-light:#e8a0b0;--rose-pale:#fce8ee;--rose-deep:#9a4a62;
+      --cream:#fdf6f0;--gold:#c8a96e;--leaf:#5a7a5a;--text:#3a2a2a;--text-soft:#7a5a60;
+    }
     html,body{font-family:'Nunito',sans-serif;background:var(--cream);min-height:100vh;-webkit-tap-highlight-color:transparent}
     .app{max-width:430px;margin:0 auto;min-height:100vh;background:var(--cream);position:relative;overflow-x:hidden;padding-bottom:80px}
-
-    /* ── DESKTOP LAYOUT ── */
-    @media(min-width:768px){
-      .app{max-width:100%;display:grid;grid-template-columns:380px 1fr;grid-template-rows:auto 1fr;min-height:100vh;padding-bottom:0}
-      .sky-bg{grid-column:1;grid-row:1/3}
-      .header{grid-column:1;grid-row:1}
-      .bottom-nav{position:sticky;bottom:0;left:0;max-width:380px;transform:none;grid-column:1;z-index:10}
-      .tab-panel{grid-column:1}
-      .tab-panel#panel-log{grid-column:2;grid-row:1/3;display:block!important;overflow-y:auto;max-height:100vh;border-left:1px solid #e0eed8;background:var(--cream)}
-      .tab-panel#panel-garden{grid-column:1;grid-row:2}
-      .form-wrap{padding:40px 32px 40px}
-      .ibadah-type-grid{grid-template-columns:1fr 1fr 1fr}
-      .flower-grid{gap:10px}
-      .checklist-scroll{max-height:240px}
-      .nav-btn#nav-log{display:none}
-      .desktop-log-header{display:block!important}
-    }
-    .desktop-log-header{display:none;padding:24px 32px 0;font-family:'Lora',serif;font-size:20px;color:var(--leaf)}
-    .sky-bg{position:absolute;top:0;left:0;right:0;height:220px;background:linear-gradient(180deg,#c8e6f5 0%,#d4ecd4 40%,#e8f2eb 70%,#fdf8f0 100%);z-index:0}
+    .desktop-log-header{display:none}
+    .sky-bg{position:absolute;top:0;left:0;right:0;height:220px;background:linear-gradient(180deg,#f9d0dc 0%,#fce8ee 40%,#fdf0f4 70%,#fdf6f0 100%);z-index:0}
 
     /* Header */
     .header{position:relative;z-index:0;padding:40px 20px 14px;text-align:center}
-    .header h1{font-family:'Lora',serif;font-size:24px;color:var(--leaf);letter-spacing:-0.3px}
-    .header p{font-size:13px;color:var(--sage);margin-top:3px;font-style:italic}
-    .week-badge{display:inline-flex;align-items:center;gap:5px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--sage);margin-top:8px}
-    .live-dot{width:6px;height:6px;border-radius:50%;background:#4caf50;animation:pulse 1.5s infinite}
+    .header h1{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--rose-deep);letter-spacing:0.3px}
+    .header p{font-size:13px;color:var(--rose-light);margin-top:3px;font-style:italic}
+    .week-badge{display:inline-flex;align-items:center;gap:5px;background:var(--rose-pale);border:1px solid var(--rose-light);border-radius:12px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--rose-deep);margin-top:8px}
+    .live-dot{width:6px;height:6px;border-radius:50%;background:var(--rose);animation:pulse 1.5s infinite}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 
     /* Week strip */
-    .week-strip{position:relative;z-index:1;margin:12px 16px 14px;background:white;border-radius:14px;border:0.5px solid #d0e8d8;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
-    .week-label{font-size:11px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+    .week-strip{position:relative;z-index:1;margin:12px 16px 14px;background:white;border-radius:14px;border:0.5px solid var(--rose-pale);padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+    .week-label{font-size:11px;color:#aaa;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
     .day-dots{display:flex;gap:5px}
     .day-dot{display:flex;flex-direction:column;align-items:center;gap:3px}
-    .day-dot span{font-size:9px;color:#aaa;font-weight:600}
+    .day-dot span{font-size:9px;color:#ccc;font-weight:600}
     .dot{width:10px;height:10px;border-radius:50%;background:#eee}
-    .dot.done{background:var(--sage-light)}
-    .dot.today{background:var(--sage);box-shadow:0 0 0 2px #c8e6c9}
+    .dot.done{background:var(--rose-light)}
+    .dot.today{background:var(--rose);box-shadow:0 0 0 2px var(--rose-pale)}
 
     /* Name selector */
     .name-selector{position:relative;z-index:1;padding:0 20px 16px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-    .name-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--sage-light);background:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;color:var(--sage);cursor:pointer;transition:all 0.18s}
-    .name-btn.active{background:var(--sage);color:white;border-color:var(--sage)}
+    .name-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--rose-light);background:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;color:var(--rose);cursor:pointer;transition:all 0.18s}
+    .name-btn.active{background:var(--rose);color:white;border-color:var(--rose)}
 
     /* Stats */
     .stats-row{position:relative;z-index:1;padding:0 20px 14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-    .stat-card{background:white;border-radius:12px;padding:10px 6px;text-align:center;border:0.5px solid #d0e8d8}
-    .stat-num{font-size:22px;font-weight:700;color:var(--sage);font-family:'Lora',serif}
-    .stat-label{font-size:10px;color:#888;margin-top:2px;line-height:1.3}
+    .stat-card{background:white;border-radius:12px;padding:10px 6px;text-align:center;border:0.5px solid var(--rose-pale)}
+    .stat-num{font-size:22px;font-weight:700;color:var(--rose-deep);font-family:'Cormorant Garamond',serif}
+    .stat-label{font-size:10px;color:var(--text-soft);margin-top:2px;line-height:1.3}
 
     /* Garden beds */
     .garden-section{position:relative;z-index:1;padding:0 16px 12px}
-    .section-title{font-family:'Lora',serif;font-size:15px;color:var(--leaf);margin-bottom:10px;padding-left:6px;display:flex;align-items:center;gap:7px}
-    .section-title::before{content:'';display:block;width:3px;height:15px;background:var(--sage-light);border-radius:2px}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--rose-deep);margin-bottom:10px;padding-left:6px;display:flex;align-items:center;gap:7px}
+    .section-title::before{content:'';display:block;width:3px;height:15px;background:var(--rose-light);border-radius:2px}
     .garden-bed{background:#f5e6d3;border-radius:16px;border:0.5px solid #d4a876;padding:14px;min-height:80px}
     .plant-grid{display:flex;flex-wrap:wrap;gap:10px}
     .plant-item{display:flex;flex-direction:column;align-items:center;gap:4px}
     .plant-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden;background:#f5f5f5}
     .plant-icon img{width:100%;height:100%;object-fit:contain;padding:4px}
-    .plant-name{font-size:9px;color:#666;text-align:center;max-width:52px;line-height:1.2;font-weight:600}
-    .plant-count{font-size:9px;color:var(--sage);font-weight:700;background:var(--sage-pale);border-radius:8px;padding:1px 5px}
-    .empty-state{text-align:center;padding:20px;color:#bbb;font-size:13px;font-style:italic;line-height:1.6}
+    .plant-name{font-size:9px;color:#888;text-align:center;max-width:52px;line-height:1.2;font-weight:600}
+    .plant-count{font-size:9px;color:var(--rose-deep);font-weight:700;background:var(--rose-pale);border-radius:8px;padding:1px 5px}
+    .empty-state{text-align:center;padding:20px;color:#ccc;font-size:13px;font-style:italic;line-height:1.6}
     .empty-state span{font-size:22px;display:block;margin-bottom:6px}
     .soil-strip{height:10px;background:linear-gradient(180deg,#c8956c,#a0703e);border-radius:0 0 12px 12px;margin:0 16px 18px}
 
     /* Progress */
     .progress-section{position:relative;z-index:1;padding:0 16px 20px}
-    .progress-card{background:white;border-radius:16px;border:0.5px solid #d0e8d8;padding:14px}
+    .progress-card{background:white;border-radius:16px;border:0.5px solid var(--rose-pale);padding:14px}
     .progress-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
     .progress-row:last-child{margin-bottom:0}
     .prog-icon{font-size:17px;width:28px;text-align:center}
-    .prog-label{font-size:12px;color:#555;flex:1;font-weight:600}
-    .prog-bar-wrap{width:80px;height:6px;background:#eee;border-radius:4px;overflow:hidden}
+    .prog-label{font-size:12px;color:var(--text-soft);flex:1;font-weight:600}
+    .prog-bar-wrap{width:80px;height:6px;background:#f0e0e8;border-radius:4px;overflow:hidden}
     .prog-bar{height:100%;border-radius:4px;transition:width 0.6s ease}
-    .prog-count{font-size:12px;color:var(--sage);font-weight:700;min-width:36px;text-align:right}
+    .prog-count{font-size:12px;color:var(--rose-deep);font-weight:700;min-width:36px;text-align:right}
 
     /* Badges */
     .badge-section{position:relative;z-index:1;padding:0 16px 20px}
     .badge-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .badge-card{background:white;border-radius:12px;border:0.5px solid #d0e8d8;padding:10px;display:flex;align-items:center;gap:8px}
+    .badge-card{background:white;border-radius:12px;border:0.5px solid var(--rose-pale);padding:10px;display:flex;align-items:center;gap:8px}
     .badge-icon{font-size:20px;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .badge-title{font-size:11px;font-weight:700;color:#333;line-height:1.3}
-    .badge-sub{font-size:10px;color:#aaa;line-height:1.3;margin-top:1px}
-    .badge-card.earned .badge-icon{background:#e8f5e9}
+    .badge-title{font-size:11px;font-weight:700;color:var(--text);line-height:1.3}
+    .badge-sub{font-size:10px;color:#bbb;line-height:1.3;margin-top:1px}
+    .badge-card.earned .badge-icon{background:var(--rose-pale)}
     .badge-card.locked{opacity:0.42}
     .badge-card.locked .badge-icon{background:#f5f5f5;filter:grayscale(1)}
 
     /* Loading/error */
-    .loading-state{text-align:center;padding:40px 20px;color:var(--sage);font-size:14px}
+    .loading-state{text-align:center;padding:40px 20px;color:var(--rose);font-size:14px}
     .loading-state .spin{display:inline-block;font-size:28px;animation:spin 1s linear infinite;margin-bottom:10px}
     @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
     .error-state{text-align:center;padding:24px;color:#e57373;font-size:13px;line-height:1.6}
 
     /* Refresh */
     .btn-row{padding:0 16px 10px}
-    .refresh-btn{width:100%;padding:12px;background:white;color:var(--sage);border:1.5px solid var(--sage-light);border-radius:14px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;cursor:pointer}
+    .refresh-btn{width:100%;padding:12px;background:white;color:var(--rose);border:1.5px solid var(--rose-light);border-radius:14px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;cursor:pointer}
 
     /* Tab panels */
     .tab-panel{display:none}
@@ -120,49 +106,64 @@
     .form-name-selector{margin-bottom:16px}
 
     .ibadah-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-    .type-card{background:white;border:1.5px solid #d0e8d8;border-radius:14px;padding:12px 10px;text-align:center;cursor:pointer;transition:all 0.18s}
-    .type-card.active{border-color:var(--sage);background:var(--sage-pale)}
+    .type-card{background:white;border:1.5px solid var(--rose-pale);border-radius:14px;padding:12px 10px;text-align:center;cursor:pointer;transition:all 0.18s}
+    .type-card.active{border-color:var(--rose);background:var(--rose-pale)}
     .type-card .type-icon{font-size:24px;margin-bottom:4px}
-    .type-card .type-name{font-size:12px;font-weight:700;color:#444;line-height:1.3}
-    .type-card.active .type-name{color:var(--leaf)}
+    .type-card .type-name{font-size:12px;font-weight:700;color:#666;line-height:1.3}
+    .type-card.active .type-name{color:var(--rose-deep)}
 
-    .form-section{background:white;border-radius:16px;border:0.5px solid #d0e8d8;padding:16px;margin-bottom:14px;display:none}
+    .form-section{background:white;border-radius:16px;border:0.5px solid var(--rose-pale);padding:16px;margin-bottom:14px;display:none}
     .form-section.visible{display:block}
-    .form-section-title{font-family:'Lora',serif;font-size:14px;color:var(--leaf);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+    .form-section-title{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--rose-deep);margin-bottom:12px;display:flex;align-items:center;gap:6px}
     .form-group{margin-bottom:14px}
     .form-group:last-child{margin-bottom:0}
-    .form-label{font-size:12px;font-weight:700;color:#555;margin-bottom:8px;display:block}
-    .form-sublabel{font-size:11px;color:#999;margin-bottom:6px;display:block;font-style:italic}
-    .form-select,.form-input{width:100%;padding:10px 12px;border:1.5px solid #d0e8d8;border-radius:10px;font-family:'Nunito',sans-serif;font-size:13px;color:#333;background:var(--cream);appearance:none;-webkit-appearance:none;outline:none;transition:border-color 0.2s}
-    .form-select:focus,.form-input:focus{border-color:var(--sage-light)}
+    .form-label{font-size:12px;font-weight:700;color:var(--text-soft);margin-bottom:8px;display:block}
+    .form-sublabel{font-size:11px;color:#bbb;margin-bottom:6px;display:block;font-style:italic}
+    .form-select,.form-input{width:100%;padding:10px 12px;border:1.5px solid var(--rose-pale);border-radius:10px;font-family:'Nunito',sans-serif;font-size:13px;color:var(--text);background:var(--cream);appearance:none;-webkit-appearance:none;outline:none;transition:border-color 0.2s}
+    .form-select:focus,.form-input:focus{border-color:var(--rose-light)}
 
     .flower-grid{display:flex;flex-wrap:wrap;gap:8px}
-    .flower-chip{padding:6px 10px;border-radius:12px;border:1.5px solid #d0e8d8;background:white;font-family:'Nunito',sans-serif;font-size:11px;font-weight:600;color:#555;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:6px}
+    .flower-chip{padding:6px 10px;border-radius:12px;border:1.5px solid var(--rose-pale);background:white;font-family:'Nunito',sans-serif;font-size:11px;font-weight:600;color:#777;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:6px}
     .flower-chip img{width:28px;height:28px;object-fit:contain}
-    .flower-chip.selected{border-color:var(--sage);background:var(--sage-pale);color:var(--leaf)}
+    .flower-chip.selected{border-color:var(--rose);background:var(--rose-pale);color:var(--rose-deep)}
 
-    .checklist-scroll{max-height:320px;overflow-y:auto;border:0.5px solid #d0e8d8;border-radius:10px;padding:4px}
-    .checklist-row{display:flex;align-items:flex-start;gap:10px;padding:10px 8px;border-bottom:0.5px solid #f5f5f5;cursor:pointer}
+    .checklist-scroll{max-height:320px;overflow-y:auto;border:0.5px solid var(--rose-pale);border-radius:10px;padding:4px}
+    .checklist-row{display:flex;align-items:flex-start;gap:10px;padding:10px 8px;border-bottom:0.5px solid #fdf0f4;cursor:pointer}
     .checklist-row:last-child{border-bottom:none}
-    .check-box{width:22px;height:22px;min-width:22px;border-radius:6px;border:1.5px solid #d0e8d8;background:white;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all 0.15s;margin-top:1px}
-    .check-box.checked{background:var(--sage);border-color:var(--sage);color:white}
-    .check-label{font-size:12px;color:#555;font-weight:600;line-height:1.5;flex:1;white-space:normal;word-break:break-word}
+    .check-box{width:22px;height:22px;min-width:22px;border-radius:6px;border:1.5px solid var(--rose-pale);background:white;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all 0.15s;margin-top:1px}
+    .check-box.checked{background:var(--rose);border-color:var(--rose);color:white}
+    .check-label{font-size:12px;color:var(--text-soft);font-weight:600;line-height:1.5;flex:1;white-space:normal;word-break:break-word}
 
-    .color-section-label{font-size:12px;font-weight:700;color:#888;margin:12px 0 6px;display:flex;align-items:center;gap:6px}
+    .color-section-label{font-size:12px;font-weight:700;color:#aaa;margin:12px 0 6px;display:flex;align-items:center;gap:6px}
 
-    .submit-btn{width:100%;padding:14px;background:var(--sage);color:white;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:0.3px;margin-top:4px;transition:opacity 0.2s}
+    .submit-btn{width:100%;padding:14px;background:var(--rose);color:white;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:0.3px;margin-top:4px;transition:opacity 0.2s}
     .submit-btn:disabled{opacity:0.5;cursor:not-allowed}
 
     /* Toast */
-    .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--leaf);color:white;padding:12px 24px;border-radius:14px;font-size:13px;font-weight:700;opacity:0;transition:all 0.3s;z-index:100;white-space:nowrap;pointer-events:none}
+    .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--rose-deep);color:white;padding:12px 24px;border-radius:14px;font-size:13px;font-weight:700;opacity:0;transition:all 0.3s;z-index:100;white-space:nowrap;pointer-events:none}
     .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
     /* Bottom nav */
-    .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:white;border-top:0.5px solid #d0e8d8;display:grid;grid-template-columns:1fr 1fr;z-index:10}
+    .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:white;border-top:0.5px solid var(--rose-pale);display:grid;grid-template-columns:1fr 1fr;z-index:10}
     .nav-btn{padding:12px;border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;color:#ccc;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:color 0.2s}
     .nav-btn .nav-icon{font-size:20px;filter:grayscale(1);opacity:0.4;transition:all 0.2s}
-    .nav-btn.active{color:var(--sage)}
+    .nav-btn.active{color:var(--rose)}
     .nav-btn.active .nav-icon{filter:none;opacity:1}
+
+    /* Leaderboard */
+    .leaderboard-section{position:relative;z-index:1;padding:0 16px 20px}
+    .leaderboard-card{background:white;border-radius:16px;border:0.5px solid var(--rose-pale);overflow:hidden}
+    .leaderboard-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:0.5px solid #fdf0f4;transition:background 0.15s}
+    .leaderboard-row:last-child{border-bottom:none}
+    .leaderboard-row.top1{background:linear-gradient(90deg,#fffde7,white)}
+    .leaderboard-row.top2{background:linear-gradient(90deg,#f5f5f5,white)}
+    .leaderboard-row.top3{background:linear-gradient(90deg,#fff3e0,white)}
+    .rank{font-size:18px;width:28px;text-align:center;flex-shrink:0}
+    .lb-name{font-size:13px;font-weight:700;color:var(--text);flex:1}
+    .lb-plants{font-size:12px;color:var(--rose-deep);font-weight:700;background:var(--rose-pale);border-radius:8px;padding:3px 10px}
+    .lb-bar-wrap{width:60px;height:5px;background:#f0e0e8;border-radius:4px;overflow:hidden}
+    .lb-bar{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--rose-light),var(--rose))}
+    .lb-loading{text-align:center;padding:20px;color:#ccc;font-size:13px}
 
     .install-tip{position:relative;z-index:1;margin:0 16px 16px;background:#fff8e1;border:1px solid #ffe082;border-radius:14px;padding:12px 32px 12px 14px;font-size:12px;color:#7a5c00;line-height:1.7}
     .install-tip strong{font-weight:700}
@@ -205,6 +206,13 @@
     </div>
     <div class="btn-row">
       <button class="refresh-btn" id="refreshBtn">↻ Refresh garden</button>
+    </div>
+
+    <div class="leaderboard-section">
+      <div class="section-title">🏆 This week's leaderboard</div>
+      <div class="leaderboard-card" id="leaderboard">
+        <div class="lb-loading">🌱 Loading leaderboard...</div>
+      </div>
     </div>
   </div>
 
@@ -383,8 +391,11 @@ async function loadNames() {
       fsel.appendChild(opt);
     });
 
-    // Load first member
-    if (names.length > 0) loadMember(names[0]);
+    // Load first member + leaderboard
+    if (names.length > 0) {
+      loadMember(names[0]);
+      loadLeaderboard(names);
+    }
   } catch(err) {
     document.getElementById('gardenContent').innerHTML =
       `<div class="error-state">⚠️ Could not load members.<br><small>${err.message}</small></div>`;
@@ -608,10 +619,10 @@ function buildContent(name, entries) {
     <div class="stat-card"><div class="stat-num">${mC+eC}</div><div class="stat-label">Adhkar done</div></div>`;
 
   const progRows=[
-    {icon:'📖',label:'Quran recitation',  val:qC,color:'#7aad8a'},
-    {icon:'🌅',label:'Morning Adhkar',    val:mC,color:'#f9c74f'},
-    {icon:'🌙',label:'Evening Adhkar',    val:eC,color:'#7ab8d4'},
-    {icon:'📿',label:'Hifz memorisation', val:hC,color:'#c4a5d8'},
+    {icon:'📖',label:'Quran recitation',  val:qC,color:'#c4748a'},
+    {icon:'🌅',label:'Morning Adhkar',    val:mC,color:'#e8a0b0'},
+    {icon:'🌙',label:'Evening Adhkar',    val:eC,color:'#9a4a62'},
+    {icon:'📿',label:'Hifz memorisation', val:hC,color:'#c8a96e'},
     {icon:'✨',label:'Tahajjud prayer',   val:tC,color:'#d4a5b8'},
   ];
 
@@ -835,8 +846,56 @@ async function submitForm() {
   btn.disabled=false; btn.textContent='🌱 Log & Grow My Garden';
 }
 
+/* ── LEADERBOARD ── */
+async function loadLeaderboard(names) {
+  const lb = document.getElementById('leaderboard');
+  lb.innerHTML = '<div class="lb-loading">🌱 Loading leaderboard...</div>';
+
+  try {
+    // Fetch all members' weekly data in parallel
+    const results = await Promise.all(names.map(async name => {
+      try {
+        const res  = await fetch(API + '?name=' + encodeURIComponent(name));
+        const json = await res.json();
+        const entries = json.entries || [];
+        const plants = [
+          ...countPlants(entries.filter(e=>e.ibadahType==='Quran'||((!e.ibadahType)&&(e.pages||e.seedling))),'seedling'),
+          ...countPlants(entries.filter(e=>e.ibadahType==='Quran'||((!e.ibadahType)&&(e.pages||e.seedling))),'whiteFlower'),
+          ...countPlants(entries.filter(e=>e.ibadahType==='Quran'||((!e.ibadahType)&&(e.pages||e.seedling))),'redFlower'),
+          ...countPlants(entries.filter(e=>e.ibadahType==='Quran'||((!e.ibadahType)&&(e.pages||e.seedling))),'yellowFlower'),
+          ...countPlants(entries.filter(e=>e.ibadahType==='Quran'||((!e.ibadahType)&&(e.pages||e.seedling))),'purpleFlower'),
+          ...countPlants(entries.filter(e=>e.ibadahType==='Morning Adhkar'),'adhkarFlower'),
+          ...countPlants(entries.filter(e=>e.ibadahType==='Evening Adhkar'),'eveningFlower'),
+          ...countPlants(entries.filter(e=>e.ibadahType==='Hifz'),'hifzPlant'),
+          ...countPlants(entries.filter(e=>e.ibadahType==='Tahajjud'),'tahajjudFlower'),
+        ];
+        const total = plants.reduce((s,p)=>s+p.count,0);
+        return { name, total };
+      } catch { return { name, total: 0 }; }
+    }));
+
+    // Sort by total plants descending
+    results.sort((a,b) => b.total - a.total);
+    const max = results[0]?.total || 1;
+
+    const medals = ['🥇','🥈','🥉'];
+    lb.innerHTML = results.map((r, i) => `
+      <div class="leaderboard-row ${i===0?'top1':i===1?'top2':i===2?'top3':''}">
+        <div class="rank">${medals[i] || (i+1)}</div>
+        <div class="lb-name">${r.name}</div>
+        <div class="lb-bar-wrap"><div class="lb-bar" style="width:${Math.round((r.total/max)*100)}%"></div></div>
+        <div class="lb-plants">🌱 ${r.total}</div>
+      </div>`).join('');
+
+  } catch(err) {
+    lb.innerHTML = `<div class="lb-loading">⚠️ Could not load leaderboard</div>`;
+  }
+}
+
 /* ── INIT ── */
-  document.getElementById('refreshBtn').onclick = () => loadMember(currentName, true);
+  document.getElementById('refreshBtn').onclick = () => {
+    loadMember(currentName, true);
+  };
   setupWeek();
   loadNames();
 </script>
