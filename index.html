@@ -401,34 +401,45 @@ async function loadNames() {
     const res  = await fetch(API + '?action=members');
     const json = await res.json();
     const names = json.names || [];
-
-    // Garden name buttons
-    const sel = document.getElementById('nameSelector');
-    sel.innerHTML = '';
-    names.forEach(n => {
-      const b = document.createElement('button');
-      b.className = 'name-btn'; b.dataset.name = n; b.textContent = n;
-      b.onclick = () => loadMember(n);
-      sel.appendChild(b);
-    });
-
-    // Form name dropdown
-    const fsel = document.getElementById('formNameSelector');
-    fsel.innerHTML = '<option value="">Select your name...</option>';
-    names.forEach(n => {
-      const opt = document.createElement('option');
-      opt.value = n; opt.textContent = n;
-      fsel.appendChild(opt);
-    });
-
-    // Load first member + leaderboard
-    if (names.length > 0) {
-      loadMember(names[0]);
-      loadLeaderboard(names);
-    }
+    // Save to local storage for offline use
+    localStorage.setItem('sqc_members', JSON.stringify(names));
+    buildNameSelectors(names);
   } catch(err) {
-    document.getElementById('gardenContent').innerHTML =
-      `<div class="error-state">⚠️ Could not load members.<br><small>${err.message}</small></div>`;
+    // Offline — try local storage
+    const cached = localStorage.getItem('sqc_members');
+    if (cached) {
+      const names = JSON.parse(cached);
+      buildNameSelectors(names);
+      showToast('📵 Offline — showing last known members');
+    } else {
+      document.getElementById('gardenContent').innerHTML =
+        `<div class="error-state">📵 You're offline and no cached data is available yet.<br>Please connect to the internet for your first visit.</div>`;
+    }
+  }
+}
+
+function buildNameSelectors(names) {
+  // Garden name buttons
+  const sel = document.getElementById('nameSelector');
+  sel.innerHTML = '';
+  names.forEach(n => {
+    const b = document.createElement('button');
+    b.className = 'name-btn'; b.dataset.name = n; b.textContent = n;
+    b.onclick = () => loadMember(n);
+    sel.appendChild(b);
+  });
+  // Form name dropdown
+  const fsel = document.getElementById('formNameSelector');
+  fsel.innerHTML = '<option value="">Select your name...</option>';
+  names.forEach(n => {
+    const opt = document.createElement('option');
+    opt.value = n; opt.textContent = n;
+    fsel.appendChild(opt);
+  });
+  // Load first member + leaderboard
+  if (names.length > 0) {
+    loadMember(names[0]);
+    loadLeaderboard(names);
   }
 }
 
@@ -728,10 +739,18 @@ async function loadMember(name, forceRefresh) {
     const res  = await fetch(API+'?name='+encodeURIComponent(name));
     const json = await res.json();
     cache[name] = json.entries||[];
+    localStorage.setItem('sqc_garden_'+name, JSON.stringify(cache[name]));
     buildContent(name, cache[name]);
   } catch(err) {
-    document.getElementById('gardenContent').innerHTML=
-      `<div class="error-state">⚠️ Could not load data.<br><small>${err.message}</small></div>`;
+    const cached = localStorage.getItem('sqc_garden_'+name);
+    if (cached) {
+      cache[name] = JSON.parse(cached);
+      buildContent(name, cache[name]);
+      showToast('📵 Offline — showing last synced garden');
+    } else {
+      document.getElementById('gardenContent').innerHTML=
+        `<div class="error-state">📵 No cached data for ${name} yet.<br>Connect to internet to load their garden.</div>`;
+    }
   }
 }
 
