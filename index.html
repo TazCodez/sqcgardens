@@ -21,6 +21,36 @@
     .desktop-log-header{display:none}
     .sky-bg{position:absolute;top:0;left:0;right:0;height:220px;background:linear-gradient(180deg,#f9d0dc 0%,#fce8ee 40%,#fdf0f4 70%,#fdf6f0 100%);z-index:0}
 
+    /* ── DESKTOP LAYOUT ── */
+    @media(min-width:768px){
+      .app{max-width:100%;padding-bottom:0}
+      .sky-bg{height:280px}
+      .header{padding:50px 40px 20px}
+      .header h1{font-size:32px}
+      .week-strip{margin:12px 40px 14px}
+      .name-selector{padding:0 40px 16px;gap:10px}
+      .name-btn{padding:8px 20px;font-size:14px}
+      .stats-row{padding:0 40px 14px;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
+      /* Three column garden grid */
+      .garden-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;padding:0 40px 16px;position:relative;z-index:1}
+      .garden-section{padding:0;margin:0}
+      .garden-section .section-title{font-size:14px;margin-bottom:8px}
+      .soil-strip{margin:0 0 0 0;border-radius:0 0 12px 12px;height:8px}
+      .garden-bed{min-height:120px}
+      /* Progress and badges side by side */
+      .bottom-section{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:0 40px 20px;position:relative;z-index:1}
+      .progress-section,.badge-section,.leaderboard-section{padding:0}
+      /* Bottom nav becomes side nav on desktop */
+      .bottom-nav{position:relative;transform:none;left:auto;max-width:100%;border-top:none;border-bottom:1px solid var(--rose-pale);grid-template-columns:repeat(2,auto);justify-content:center;gap:8px;padding:10px 40px}
+      .nav-btn{flex-direction:row;gap:6px;padding:8px 20px;border-radius:20px}
+      .nav-btn.active{background:var(--rose-pale)}
+      .form-wrap{max-width:600px;margin:0 auto;padding:40px 40px 40px}
+      .ibadah-type-grid{grid-template-columns:repeat(3,1fr)}
+      .btn-row{padding:0 40px 10px}
+      .refresh-btn{max-width:300px}
+      .leaderboard-section{padding:0 40px 20px}
+    }
+
     /* Header */
     .header{position:relative;z-index:0;padding:40px 20px 14px;text-align:center}
     .header h1{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--rose-deep);letter-spacing:0.3px}
@@ -196,7 +226,7 @@
       <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Adhkar done</div></div>
     </div>
     <div id="gardenContent">
-      <div class="loading-state"><div class="spin">🌱</div><br>Loading your garden...</div>
+      <div class="loading-state"><div class="spin">🌸</div><br>Loading your garden...</div>
     </div>
     <div class="install-tip" id="installTip">
       <button class="tip-close" onclick="document.getElementById('installTip').style.display='none'">×</button>
@@ -627,46 +657,60 @@ function buildContent(name, entries) {
   ];
 
   document.getElementById('gardenContent').innerHTML=`
-    <div class="garden-section"><div class="section-title">📖 Quran Garden</div>
-      <div class="garden-bed">${renderGarden(quranPlants,'No Quran entries yet this week!')}</div></div>
-    <div class="soil-strip"></div>
-    <div class="garden-section"><div class="section-title">🌅 Morning Adhkar Garden</div>
-      <div class="garden-bed">${renderGarden(morningPlants,'No morning adhkar yet this week.')}</div></div>
-    <div class="soil-strip"></div>
-    <div class="garden-section"><div class="section-title">🌙 Evening Adhkar Garden</div>
-      <div class="garden-bed">${renderGarden(eveningPlants,'No evening adhkar yet this week.')}</div></div>
-    <div class="soil-strip"></div>
-    <div class="garden-section"><div class="section-title">📿 Hifz Garden</div>
-      <div class="garden-bed">${renderGarden(hifzPlants,'No hifz entries yet this week.')}</div></div>
-    <div class="soil-strip"></div>
-    <div class="garden-section"><div class="section-title">✨ Tahajjud Garden</div>
-      <div class="garden-bed">${renderGarden(tahajPlants,'No tahajjud entries yet this week.')}</div></div>
-    <div class="soil-strip"></div>
-    <div class="progress-section">
-      <div class="section-title">This week's progress</div>
-      <div class="progress-card">
-        ${progRows.map(r=>`<div class="progress-row">
-          <span class="prog-icon">${r.icon}</span>
-          <span class="prog-label">${r.label}</span>
-          <div class="prog-bar-wrap"><div class="prog-bar" style="width:${Math.round((Math.min(r.val,7)/7)*100)}%;background:${r.color}"></div></div>
-          <span class="prog-count">${r.val}/7</span>
-        </div>`).join('')}
+    <div class="garden-grid">
+      <div>
+        <div class="garden-section"><div class="section-title">📖 Quran Garden</div>
+          <div class="garden-bed">${renderGarden(quranPlants,'No Quran entries yet this week!')}</div></div>
+        <div class="soil-strip"></div>
+      </div>
+      <div>
+        <div class="garden-section"><div class="section-title">🌅 Morning Adhkar Garden</div>
+          <div class="garden-bed">${renderGarden(morningPlants,'No morning adhkar yet this week.')}</div></div>
+        <div class="soil-strip"></div>
+      </div>
+      <div>
+        <div class="garden-section"><div class="section-title">🌙 Evening Adhkar Garden</div>
+          <div class="garden-bed">${renderGarden(eveningPlants,'No evening adhkar yet this week.')}</div></div>
+        <div class="soil-strip"></div>
+      </div>
+      <div>
+        <div class="garden-section"><div class="section-title">📿 Hifz Garden</div>
+          <div class="garden-bed">${renderGarden(hifzPlants,'No hifz entries yet this week.')}</div></div>
+        <div class="soil-strip"></div>
+      </div>
+      <div>
+        <div class="garden-section"><div class="section-title">✨ Tahajjud Garden</div>
+          <div class="garden-bed">${renderGarden(tahajPlants,'No tahajjud entries yet this week.')}</div></div>
+        <div class="soil-strip"></div>
       </div>
     </div>
-    <div class="badge-section">
-      <div class="section-title">This week's achievements</div>
-      <div class="badge-grid">
-        ${[
-          {e:'⭐',t:'Quran Streak',     s:'5+ sessions',    earned:qC>=5},
-          {e:'🌅',t:'Morning Devotee',  s:'5+ mornings',    earned:mC>=5},
-          {e:'🌙',t:'Evening Devotee',  s:'5+ evenings',    earned:eC>=5},
-          {e:'📿',t:'Memoriser',        s:'3+ hifz sessions',earned:hC>=3},
-          {e:'✨',t:'Night Worshipper', s:'3+ tahajjud',    earned:tC>=3},
-          {e:'🌸',t:'Full Bloom',       s:'10+ plants grown',earned:totalP>=10},
-        ].map(b=>`<div class="badge-card ${b.earned?'earned':'locked'}">
-          <div class="badge-icon">${b.e}</div>
-          <div><div class="badge-title">${b.t}</div><div class="badge-sub">${b.s}</div></div>
-        </div>`).join('')}
+    <div class="bottom-section">
+      <div class="progress-section">
+        <div class="section-title">This week's progress</div>
+        <div class="progress-card">
+          ${progRows.map(r=>`<div class="progress-row">
+            <span class="prog-icon">${r.icon}</span>
+            <span class="prog-label">${r.label}</span>
+            <div class="prog-bar-wrap"><div class="prog-bar" style="width:${Math.round((Math.min(r.val,7)/7)*100)}%;background:${r.color}"></div></div>
+            <span class="prog-count">${r.val}/7</span>
+          </div>`).join('')}
+        </div>
+      </div>
+      <div class="badge-section">
+        <div class="section-title">This week's achievements</div>
+        <div class="badge-grid">
+          ${[
+            {e:'⭐',t:'Quran Streak',     s:'5+ sessions',    earned:qC>=5},
+            {e:'🌅',t:'Morning Devotee',  s:'5+ mornings',    earned:mC>=5},
+            {e:'🌙',t:'Evening Devotee',  s:'5+ evenings',    earned:eC>=5},
+            {e:'📿',t:'Memoriser',        s:'3+ hifz sessions',earned:hC>=3},
+            {e:'✨',t:'Night Worshipper', s:'3+ tahajjud',    earned:tC>=3},
+            {e:'🌸',t:'Full Bloom',       s:'10+ plants grown',earned:totalP>=10},
+          ].map(b=>`<div class="badge-card ${b.earned?'earned':'locked'}">
+            <div class="badge-icon">${b.e}</div>
+            <div><div class="badge-title">${b.t}</div><div class="badge-sub">${b.s}</div></div>
+          </div>`).join('')}
+        </div>
       </div>
     </div>`;
 }
