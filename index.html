@@ -73,6 +73,11 @@
     .name-selector{position:relative;z-index:1;padding:0 20px 16px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
     .name-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--rose-light);background:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;color:var(--rose);cursor:pointer;transition:all 0.18s}
     .name-btn.active{background:var(--rose);color:white;border-color:var(--rose)}
+    .name-btn.mine::after{content:' 🌿';font-size:10px}
+
+    /* Back to mine bar */
+    .back-to-mine{position:relative;z-index:1;text-align:center;margin:-6px 20px 14px;display:none}
+    .back-to-mine button{background:var(--rose-pale);border:1px solid var(--rose-light);color:var(--rose-deep);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;padding:6px 14px;border-radius:20px}
 
     /* Stats */
     .stats-row{position:relative;z-index:1;padding:0 20px 14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
@@ -220,6 +225,7 @@
       <div class="day-dots" id="dayDots"></div>
     </div>
     <div class="name-selector" id="nameSelector"></div>
+    <div class="back-to-mine" id="backToMineBar"></div>
     <div class="stats-row" id="statsRow">
       <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Plants this week</div></div>
       <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Quran sessions</div></div>
@@ -388,13 +394,21 @@
 const API   = 'https://script.google.com/macros/s/AKfycbwNoIeJkygzl5DWAWKg1qKy2KuMynzPgoMW9SI9MYYFQkwyei-U0HLqRVxW4fdfTQX1/exec';
 const DAYS  = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 
-let currentName = '';
-let formName    = '';
+let currentName  = '';
+let formName     = '';
+let myGardenName = null;   // set when the page is opened with ?member=<name>
 let selectedType = null;
 let selectedFlowers = {};
 let checkedMorning = {};
 let checkedEvening = {};
 let cache = {};
+
+// ── URL param: which gardener opened this page (passed by the main site as ?member=Name) ──
+function getUrlMember() {
+  const params = new URLSearchParams(window.location.search);
+  const m = params.get('member');
+  return m ? m.trim() : null;
+}
 
 async function loadNames() {
   try {
@@ -436,10 +450,22 @@ function buildNameSelectors(names) {
     opt.value = n; opt.textContent = n;
     fsel.appendChild(opt);
   });
-  // Load first member + leaderboard
+
   if (names.length > 0) {
-    loadMember(names[0]);
+    // If the page was opened with ?member=<name> (e.g. from the main SQC site),
+    // land straight on that gardener's own garden instead of always the first name.
+    const requested = getUrlMember();
+    const match = requested ? names.find(n => n.toLowerCase() === requested.toLowerCase()) : null;
+    myGardenName = match || null;
+    const initial = match || names[0];
+
+    loadMember(initial);
     loadLeaderboard(names);
+
+    if (match) {
+      formName = match;
+      fsel.value = match;
+    }
   }
 }
 
@@ -726,10 +752,25 @@ function buildContent(name, entries) {
     </div>`;
 }
 
+// Shows/hides the small "🌿 Back to My Garden" link when browsing someone else's garden
+function updateBackToMineBar(viewing) {
+  const bar = document.getElementById('backToMineBar');
+  if (!bar) return;
+  if (myGardenName && viewing !== myGardenName) {
+    bar.style.display = 'block';
+    bar.innerHTML = `<button onclick="loadMember('${myGardenName.replace(/'/g, "\\'")}')">🌿 Back to My Garden (${myGardenName})</button>`;
+  } else {
+    bar.style.display = 'none';
+  }
+}
+
 async function loadMember(name, forceRefresh) {
   currentName = name;
-  document.querySelectorAll('#nameSelector .name-btn').forEach(b =>
-    b.classList.toggle('active', b.dataset.name===name));
+  document.querySelectorAll('#nameSelector .name-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.name===name);
+    b.classList.toggle('mine', myGardenName && b.dataset.name===myGardenName);
+  });
+  updateBackToMineBar(name);
   if (cache[name] && !forceRefresh) { buildContent(name, cache[name]); return; }
   document.getElementById('gardenContent').innerHTML=
     `<div class="loading-state"><div class="spin">🌱</div><br>Loading ${name}'s garden...</div>`;
