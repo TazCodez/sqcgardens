@@ -32,7 +32,7 @@
       .name-btn{padding:8px 20px;font-size:14px}
       .stats-row{padding:0 40px 14px;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
       .view-toggle{padding:0 40px 16px}
-      .plot-wrap{padding:0 40px 16px;max-width:700px;margin:0 auto}
+      .plot-canvas{height:80vh}
       /* Three column garden grid */
       .garden-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;padding:0 40px 16px;position:relative;z-index:1}
       .garden-section{padding:0;margin:0}
@@ -55,11 +55,21 @@
 
     /* Header */
     .header{position:relative;z-index:0;padding:40px 20px 14px;text-align:center}
+    .settings-gear{position:absolute;top:14px;right:16px;background:rgba(255,255,255,0.6);border:1px solid var(--rose-pale);width:34px;height:34px;border-radius:50%;font-size:16px;cursor:pointer;z-index:5}
     .header h1{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--rose-deep);letter-spacing:0.3px}
     .header p{font-size:13px;color:var(--rose-light);margin-top:3px;font-style:italic}
     .week-badge{display:inline-flex;align-items:center;gap:5px;background:var(--rose-pale);border:1px solid var(--rose-light);border-radius:12px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--rose-deep);margin-top:8px}
     .live-dot{width:6px;height:6px;border-radius:50%;background:var(--rose);animation:pulse 1.5s infinite}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+    /* Profile settings modal */
+    .profile-modal{position:fixed;inset:0;background:rgba(60,20,30,0.55);z-index:200;display:flex;align-items:center;justify-content:center;padding:24px}
+    .profile-modal.hidden{display:none}
+    .profile-modal-box{background:white;border-radius:22px;padding:28px 24px;max-width:340px;width:100%;text-align:center;position:relative;box-shadow:0 20px 60px rgba(196,116,138,0.25)}
+    .profile-modal-close{position:absolute;top:10px;right:14px;background:none;border:none;font-size:22px;color:#ccc;cursor:pointer}
+    .profile-modal-avatar{width:56px;height:56px;border-radius:50%;background:var(--rose-pale);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 10px}
+    .profile-modal-name{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--rose-deep);margin-bottom:18px}
+    .profile-modal-section{text-align:left;background:#fff8e1;border:1px solid #ffe082;border-radius:14px;padding:12px 14px;font-size:12px;color:#7a5c00;line-height:1.7}
 
     /* Week strip */
     .week-strip{position:relative;z-index:1;margin:12px 16px 14px;background:white;border-radius:14px;border:0.5px solid var(--rose-pale);padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
@@ -87,22 +97,24 @@
     .stat-num{font-size:22px;font-weight:700;color:var(--rose-deep);font-family:'Cormorant Garamond',serif}
     .stat-label{font-size:10px;color:var(--text-soft);margin-top:2px;line-height:1.3}
 
-    /* View toggle (Plot / Inventory) */
-    .view-toggle{position:relative;z-index:1;display:flex;justify-content:center;gap:8px;padding:0 16px 14px}
-    .view-toggle-btn{padding:8px 18px;border-radius:20px;border:1.5px solid var(--rose-light);background:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--rose);cursor:pointer;transition:all 0.18s}
+    /* View toggle (Garden / Inventory / Leaderboard) */
+    .view-toggle{position:relative;z-index:1;display:flex;justify-content:center;flex-wrap:wrap;gap:6px;padding:0 16px 14px}
+    .view-toggle-btn{padding:8px 14px;border-radius:20px;border:1.5px solid var(--rose-light);background:white;font-family:'Nunito',sans-serif;font-size:12.5px;font-weight:700;color:var(--rose);cursor:pointer;transition:all 0.18s;white-space:nowrap}
     .view-toggle-btn.active{background:var(--rose);color:white;border-color:var(--rose)}
+    .view-toggle-btn[hidden]{display:none}
 
-    /* Garden plot view */
-    .plot-wrap{position:relative;z-index:1;padding:0 16px 16px}
-    .plot-canvas{position:relative;width:100%;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:#e9dcc8 url('images/garden-plot-bg.jpg') center/cover no-repeat;border:0.5px solid #d4a876;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.03)}
+    /* Garden plot view — full-immersion canvas */
+    .plot-wrap{position:relative;z-index:1;padding:0}
+    .plot-canvas{position:relative;width:100%;height:70vh;min-height:460px;max-height:820px;overflow:hidden;background:#e9dcc8 url('images/garden-plot-bg.jpg') center/cover no-repeat}
     .plot-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-size:13px;color:#fff;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,0.5);background:rgba(60,40,20,0.28)}
     .plot-plant{position:absolute;width:15%;aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;touch-action:none;cursor:grab;user-select:none;transform:translate(-50%,-50%);filter:drop-shadow(0 3px 6px rgba(0,0,0,0.35));transition:filter 0.15s}
     .plot-plant.dragging{cursor:grabbing;z-index:50;filter:drop-shadow(0 8px 14px rgba(0,0,0,0.45));transition:none}
-    .plot-plant-icon{width:100%;height:100%;border-radius:50%;background:rgba(255,255,255,0.85);display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden;pointer-events:none;border:2px solid rgba(255,255,255,0.9)}
-    .plot-plant-icon img{width:78%;height:78%;object-fit:contain;pointer-events:none}
+    .plot-plant.readonly{cursor:default}
+    .plot-plant-icon{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:34px;pointer-events:none}
+    .plot-plant-icon img{width:100%;height:100%;object-fit:contain;pointer-events:none}
     .plot-plant-count{position:absolute;bottom:-6px;right:-6px;font-size:9px;font-weight:700;color:var(--rose-deep);background:white;border:1px solid var(--rose-pale);border-radius:8px;padding:1px 5px;pointer-events:none}
-    .plot-hint{text-align:center;font-size:11px;color:var(--text-soft);margin-top:8px;font-style:italic}
-    .plot-save-row{display:flex;align-items:center;gap:10px;margin-top:10px}
+    .plot-hint{text-align:center;font-size:11px;color:var(--text-soft);margin:8px 16px 0}
+    .plot-save-row{display:flex;align-items:center;gap:10px;margin:10px 16px 0}
     .plot-save-status{font-size:11px;color:#bbb;flex:1;text-align:right}
     .plot-save-btn{padding:11px 18px;background:var(--rose);color:white;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
     .plot-save-btn:disabled{opacity:0.5;cursor:default}
@@ -222,9 +234,6 @@
     .lb-bar{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--rose-light),var(--rose))}
     .lb-loading{text-align:center;padding:20px;color:#ccc;font-size:13px}
 
-    .install-tip{position:relative;z-index:1;margin:0 16px 16px;background:#fff8e1;border:1px solid #ffe082;border-radius:14px;padding:12px 32px 12px 14px;font-size:12px;color:#7a5c00;line-height:1.7}
-    .install-tip strong{font-weight:700}
-    .tip-close{position:absolute;top:8px;right:10px;background:none;border:none;font-size:18px;color:#aaa;cursor:pointer}
   </style>
 </head>
 <body>
@@ -232,11 +241,26 @@
   <div class="sky-bg"></div>
 
   <div class="header">
+    <button class="settings-gear" id="settingsGearBtn" onclick="openProfileSettings()">⚙️</button>
     <h1>Sisters Quran Club 🌸</h1>
     <p>Ibadah Garden Tracker</p>
     <div class="week-badge">
       <span class="live-dot"></span>
       <span id="weekLabel">This week's garden</span>
+    </div>
+  </div>
+
+  <!-- PROFILE SETTINGS MODAL -->
+  <div class="profile-modal hidden" id="profileSettingsModal">
+    <div class="profile-modal-box">
+      <button class="profile-modal-close" onclick="closeProfileSettings()">×</button>
+      <div class="profile-modal-avatar" id="profileModalAvatar">🌸</div>
+      <div class="profile-modal-name" id="profileModalName">Gardener</div>
+      <div class="profile-modal-section">
+        <strong>📱 Add to your home screen!</strong><br>
+        <strong>iPhone:</strong> Tap Share → "Add to Home Screen"<br>
+        <strong>Android:</strong> Tap ⋮ menu → "Add to Home screen"
+      </div>
     </div>
   </div>
 
@@ -255,8 +279,9 @@
     </div>
 
     <div class="view-toggle">
-      <button class="view-toggle-btn active" id="plotViewBtn" onclick="setGardenView('plot')">🌻 My Plot</button>
+      <button class="view-toggle-btn active" id="plotViewBtn" onclick="setGardenView('plot')">🌻 My Garden</button>
       <button class="view-toggle-btn" id="inventoryViewBtn" onclick="setGardenView('inventory')">📋 Inventory</button>
+      <button class="view-toggle-btn" id="leaderboardViewBtn" onclick="setGardenView('leaderboard')">🏆 Leaderboard</button>
     </div>
 
     <!-- PLOT VIEW — the visual garden bed, plants dragged to wherever she likes -->
@@ -264,32 +289,28 @@
       <div class="plot-canvas" id="plotCanvas">
         <div class="plot-empty" id="plotEmptyMsg" style="display:none">🌱 Nothing planted yet this week — log some ibadah to grow your first plant!</div>
       </div>
-      <div class="plot-hint">🖐️ Drag your plants anywhere in the beds or pots to design your garden</div>
-      <div class="plot-save-row">
+      <div class="plot-hint" id="plotHint">🖐️ Drag your plants anywhere in the beds or pots to design your garden</div>
+      <div class="plot-save-row" id="plotSaveRow">
         <span class="plot-save-status" id="plotSaveStatus"></span>
         <button class="plot-save-btn" id="plotSaveBtn" onclick="savePlotLayout(true)">💾 Save My Garden Layout</button>
       </div>
     </div>
 
-    <!-- INVENTORY VIEW — the original category-grid breakdown -->
+    <!-- INVENTORY VIEW — the original category-grid breakdown (own garden only) -->
     <div id="gardenContent" style="display:none">
       <div class="loading-state"><div class="spin">🌸</div><br>Loading your garden...</div>
     </div>
-    <div class="install-tip" id="installTip">
-      <button class="tip-close" onclick="document.getElementById('installTip').style.display='none'">×</button>
-      <strong>📱 Add to your home screen!</strong><br>
-      <strong>iPhone:</strong> Tap Share → "Add to Home Screen"<br>
-      <strong>Android:</strong> Tap ⋮ menu → "Add to Home screen"
-    </div>
-    <div class="btn-row">
-      <button class="refresh-btn" id="refreshBtn">↻ Refresh garden</button>
-    </div>
 
-    <div class="leaderboard-section">
+    <!-- LEADERBOARD VIEW -->
+    <div class="leaderboard-section" id="leaderboardSection" style="display:none">
       <div class="section-title">🏆 This week's leaderboard</div>
       <div class="leaderboard-card" id="leaderboard">
         <div class="lb-loading">🌱 Loading leaderboard...</div>
       </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="refresh-btn" id="refreshBtn">↻ Refresh garden</button>
     </div>
   </div>
 
@@ -445,7 +466,8 @@ let checkedEvening = {};
 let cache = {};
 
 // ── GARDEN PLOT STATE ──
-let gardenView      = 'plot';   // 'plot' | 'inventory'
+let gardenView      = 'plot';   // 'plot' | 'inventory' | 'leaderboard'
+let viewingIsMine    = true;    // whether the currently displayed garden belongs to this device's gardener
 let plotPositions   = {};       // plantKey -> {x, y} (percentages), for currentName's current week
 let plotDirty        = false;
 let plotSaveTimer    = null;
@@ -747,20 +769,26 @@ function getWeekKey() {
 }
 
 function setGardenView(view) {
+  // Nobody can view someone else's Inventory — force back to the plot if that's attempted.
+  if (view === 'inventory' && !viewingIsMine) view = 'plot';
   gardenView = view;
   document.getElementById('plotViewBtn').classList.toggle('active', view==='plot');
   document.getElementById('inventoryViewBtn').classList.toggle('active', view==='inventory');
+  document.getElementById('leaderboardViewBtn').classList.toggle('active', view==='leaderboard');
   document.getElementById('plotWrap').style.display = view==='plot' ? '' : 'none';
   document.getElementById('gardenContent').style.display = view==='inventory' ? '' : 'none';
+  document.getElementById('leaderboardSection').style.display = view==='leaderboard' ? '' : 'none';
 }
 
-async function renderPlot(name, entries) {
+async function renderPlot(name, entries, isMine) {
   const myToken = ++plotLoadToken;
   const canvas = document.getElementById('plotCanvas');
   canvas.querySelectorAll('.plot-plant').forEach(el => el.remove());
 
   const items = collectPlotItems(entries);
   document.getElementById('plotEmptyMsg').style.display = items.length ? 'none' : 'flex';
+  document.getElementById('plotHint').style.display    = isMine ? '' : 'none';
+  document.getElementById('plotSaveRow').style.display  = isMine ? '' : 'none';
 
   // Pull this gardener's saved layout for the current week — falls back to
   // scattered default spots the first time, or while offline.
@@ -780,14 +808,14 @@ async function renderPlot(name, entries) {
   items.forEach(item => {
     const pos = plotPositions[item.key] || defaultPosFor(item.key);
     const el = document.createElement('div');
-    el.className = 'plot-plant';
+    el.className = 'plot-plant' + (isMine ? '' : ' readonly');
     el.dataset.key = item.key;
     el.style.left = pos.x + '%';
     el.style.top  = pos.y + '%';
     const img = getPlantImage(item.name);
     el.innerHTML = `<div class="plot-plant-icon">${img ? `<img src="${img}" alt="${item.name}" onerror="this.parentElement.textContent='${getAttr(PLANT_EMOJI,item.name)}'">` : getAttr(PLANT_EMOJI,item.name)}</div><div class="plot-plant-count">×${item.count}</div>`;
     canvas.appendChild(el);
-    makeDraggable(el, canvas);
+    if (isMine) makeDraggable(el, canvas); // only the gardener herself can rearrange her own plot
   });
 
   updatePlotSaveStatus('');
@@ -981,7 +1009,15 @@ async function loadMember(name, forceRefresh) {
     b.classList.toggle('mine', myGardenName && b.dataset.name===myGardenName);
   });
   updateBackToMineBar(name);
-  if (cache[name] && !forceRefresh) { buildContent(name, cache[name]); renderPlot(name, cache[name]); return; }
+
+  // Only the device's own gardener can see her Inventory breakdown; everyone
+  // else's garden is plot-view (and leaderboard) only.
+  viewingIsMine = !!(myGardenName && name === myGardenName);
+  const invBtn = document.getElementById('inventoryViewBtn');
+  if (invBtn) invBtn.hidden = !viewingIsMine;
+  if (!viewingIsMine && gardenView === 'inventory') setGardenView('plot');
+
+  if (cache[name] && !forceRefresh) { buildContent(name, cache[name]); renderPlot(name, cache[name], viewingIsMine); return; }
   document.getElementById('gardenContent').innerHTML=
     `<div class="loading-state"><div class="spin">🌱</div><br>Loading ${name}'s garden...</div>`;
   document.getElementById('statsRow').innerHTML=
@@ -992,13 +1028,13 @@ async function loadMember(name, forceRefresh) {
     cache[name] = json.entries||[];
     localStorage.setItem('sqc_garden_'+name, JSON.stringify(cache[name]));
     buildContent(name, cache[name]);
-    renderPlot(name, cache[name]);
+    renderPlot(name, cache[name], viewingIsMine);
   } catch(err) {
     const cached = localStorage.getItem('sqc_garden_'+name);
     if (cached) {
       cache[name] = JSON.parse(cached);
       buildContent(name, cache[name]);
-      renderPlot(name, cache[name]);
+      renderPlot(name, cache[name], viewingIsMine);
       showToast('📵 Offline — showing last synced garden');
     } else {
       document.getElementById('gardenContent').innerHTML=
@@ -1100,6 +1136,16 @@ function selectType(card) {
     document.getElementById('sec-tahajjud').classList.add('visible');
     buildChips('tahajjud-flowers', TAHAJJUD_FLOWERS, 'tahajjudFlower');
   }
+}
+
+function openProfileSettings() {
+  const name = myGardenName || currentName || '';
+  document.getElementById('profileModalAvatar').textContent = name ? name[0].toUpperCase() : '🌸';
+  document.getElementById('profileModalName').textContent = name || 'Gardener';
+  document.getElementById('profileSettingsModal').classList.remove('hidden');
+}
+function closeProfileSettings() {
+  document.getElementById('profileSettingsModal').classList.add('hidden');
 }
 
 function showToast(msg) {
