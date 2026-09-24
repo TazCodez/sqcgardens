@@ -17,14 +17,13 @@
       --cream:#fdf6f0;--gold:#c8a96e;--leaf:#5a7a5a;--text:#3a2a2a;--text-soft:#7a5a60;
     }
     html,body{font-family:'Nunito',sans-serif;background:var(--cream);height:100%;overflow:hidden;-webkit-tap-highlight-color:transparent}
-    .app{max-width:430px;margin:0 auto;height:100vh;height:100dvh;background:var(--cream);position:relative;overflow:hidden;display:flex;flex-direction:column}
+    .app{max-width:430px;margin:0 auto;height:100vh;height:100dvh;background:#e9dcc8 url('images/garden-plot-bg.jpg') center/cover no-repeat;position:relative;overflow:hidden;display:flex;flex-direction:column}
     .desktop-log-header{display:none}
-    .sky-bg{position:absolute;top:0;left:0;right:0;height:220px;background:linear-gradient(180deg,#f9d0dc 0%,#fce8ee 40%,#fdf0f4 70%,#fdf6f0 100%);z-index:0;pointer-events:none}
+    .sky-bg{display:none}
 
     /* ── DESKTOP LAYOUT ── */
     @media(min-width:768px){
       .app{max-width:100%}
-      .sky-bg{height:280px}
       .header{padding:16px 40px 10px}
       .header h1{font-size:22px}
       .control-bar{padding:0 40px 8px}
@@ -48,12 +47,12 @@
       .leaderboard-section{padding:0 40px 20px}
     }
 
-    /* Header */
-    .header{position:relative;z-index:2;flex-shrink:0;padding:10px 20px 8px;text-align:center}
-    .settings-gear{position:absolute;top:8px;right:16px;background:rgba(255,255,255,0.6);border:1px solid var(--rose-pale);width:30px;height:30px;border-radius:50%;font-size:14px;cursor:pointer;z-index:5}
-    .header h1{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--rose-deep);letter-spacing:0.3px}
+    /* Header — a couple of small floating glass pills over the photo, not a solid block */
+    .header{position:relative;z-index:2;flex-shrink:0;padding:8px 20px 6px;text-align:center;background:transparent}
+    .settings-gear{position:absolute;top:8px;right:16px;background:rgba(255,255,255,0.7);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.6);width:30px;height:30px;border-radius:50%;font-size:14px;cursor:pointer;z-index:5}
+    .header h1{display:inline-block;font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--rose-deep);letter-spacing:0.3px;background:rgba(255,255,255,0.7);backdrop-filter:blur(4px);padding:4px 14px;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
     .header p{display:none}
-    .week-badge{display:inline-flex;align-items:center;gap:5px;background:var(--rose-pale);border:1px solid var(--rose-light);border-radius:12px;padding:3px 10px;font-size:10px;font-weight:700;color:var(--rose-deep);margin-top:4px}
+    .week-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.7);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.5);border-radius:12px;padding:3px 10px;font-size:10px;font-weight:700;color:var(--rose-deep);margin-top:4px}
     .live-dot{width:6px;height:6px;border-radius:50%;background:var(--rose);animation:pulse 1.5s infinite}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 
@@ -82,6 +81,16 @@
     .name-btn.active{background:var(--rose);color:white;border-color:var(--rose)}
     .name-btn.mine::after{content:' 🌿';font-size:10px}
 
+    /* Search box — only shown in "All Gardens" mode, replaces the old wall-of-pills */
+    .name-search-wrap{position:relative;z-index:4}
+    .name-search-input{width:100%;padding:9px 16px;border-radius:20px;border:1.5px solid var(--rose-light);background:rgba(255,255,255,0.85);backdrop-filter:blur(4px);font-family:'Nunito',sans-serif;font-size:13px;color:var(--text);outline:none}
+    .name-search-input:focus{border-color:var(--rose)}
+    .name-search-results{position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border-radius:14px;border:1px solid var(--rose-pale);box-shadow:0 8px 24px rgba(0,0,0,0.15);max-height:240px;overflow-y:auto;z-index:20;display:none}
+    .name-search-item{display:block;width:100%;text-align:left;padding:10px 16px;border:none;border-bottom:0.5px solid #fdf0f4;background:none;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;color:var(--text);cursor:pointer}
+    .name-search-item:last-child{border-bottom:none}
+    .name-search-item:hover{background:var(--rose-pale)}
+    .name-search-empty{padding:10px 16px;font-size:12px;color:#bbb}
+
     /* Back to mine bar */
     .back-to-mine{position:relative;z-index:1;text-align:center;display:none}
     .back-to-mine button{background:var(--rose-pale);border:1px solid var(--rose-light);color:var(--rose-deep);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;padding:6px 14px;border-radius:20px}
@@ -92,18 +101,22 @@
     .stat-num{font-size:22px;font-weight:700;color:var(--rose-deep);font-family:'Cormorant Garamond',serif}
     .stat-label{font-size:10px;color:var(--text-soft);margin-top:2px;line-height:1.3}
 
-    /* Control bar — persistent nav shared by every panel, sits directly above whatever's active */
-    .control-bar{position:relative;z-index:2;flex-shrink:0;padding:0 16px 8px;display:flex;flex-direction:column;gap:8px;background:var(--cream)}
-    /* View toggle (Garden / Inventory / Leaderboard / Log Ibadah) — the very first thing in the app */
-    .view-toggle{position:relative;z-index:3;flex-shrink:0;display:flex;justify-content:center;flex-wrap:wrap;gap:6px;padding:10px 16px;background:var(--rose-pale);border-bottom:1px solid var(--rose-light)}
-    .view-toggle-btn{padding:8px 14px;border-radius:20px;border:1.5px solid var(--rose-light);background:white;font-family:'Nunito',sans-serif;font-size:12.5px;font-weight:700;color:var(--rose);cursor:pointer;transition:all 0.18s;white-space:nowrap}
+    /* Control bar — persistent nav shared by every panel, sits directly above whatever's active. Fully
+       transparent so the garden photo (now the app's own background) shows through the gaps. */
+    .control-bar{position:relative;z-index:2;flex-shrink:0;padding:0 16px 8px;display:flex;flex-direction:column;gap:8px;background:transparent}
+    /* View toggle (Garden / Inventory / Leaderboard / Log Ibadah) — the very first thing in the app,
+       flush against the outer site's My Garden / All Gardens toggle. Frosted glass, not a solid pink bar. */
+    .view-toggle{position:relative;z-index:3;flex-shrink:0;display:flex;justify-content:center;flex-wrap:wrap;gap:6px;padding:10px 16px;background:rgba(255,255,255,0.55);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.4)}
+    .view-toggle-btn{padding:8px 14px;border-radius:20px;border:1.5px solid var(--rose-light);background:rgba(255,255,255,0.85);font-family:'Nunito',sans-serif;font-size:12.5px;font-weight:700;color:var(--rose);cursor:pointer;transition:all 0.18s;white-space:nowrap}
     .view-toggle-btn.active{background:var(--rose);color:white;border-color:var(--rose)}
     .view-toggle-btn[hidden]{display:none}
 
-    /* Garden plot view — fills 100% of whatever space is left below the control bar */
+    /* Garden plot view — fills 100% of whatever space is left below the control bar. No background of
+       its own: the whole .app is already wallpapered with the same photo, so this stays transparent to
+       avoid a duplicate/misaligned copy of the image. */
     .plot-wrap{position:relative;z-index:1;flex:1;min-height:0;display:flex;flex-direction:column}
-    .plot-canvas{position:relative;flex:1;min-height:0;width:100%;overflow:hidden;background:#e9dcc8 url('images/garden-plot-bg.jpg') center/contain no-repeat}
-    .plot-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-size:13px;color:#fff;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,0.5);background:rgba(60,40,20,0.28)}
+    .plot-canvas{position:relative;flex:1;min-height:0;width:100%;overflow:hidden;background:transparent}
+    .plot-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-size:13px;color:#fff;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,0.5)}
     .hotspot-marker{position:absolute;width:22px;height:22px;border-radius:50%;border:2px dashed rgba(255,255,255,0.85);background:rgba(255,255,255,0.15);transform:translate(-50%,-50%);pointer-events:none;transition:all 0.15s;z-index:5}
     .hotspot-marker.active{background:rgba(255,255,255,0.6);border-style:solid;transform:translate(-50%,-50%) scale(1.35)}
     .plot-refresh-btn{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.75);border:none;font-size:16px;color:var(--rose-deep);cursor:pointer;z-index:6}
@@ -236,11 +249,9 @@
 </head>
 <body>
 <div class="app">
-  <div class="sky-bg"></div>
-
   <!-- Top nav row — sits right where the outer "My Garden / All Gardens" toggle hands off -->
   <div class="view-toggle" id="topViewToggle">
-    <button class="view-toggle-btn active" id="plotViewBtn" onclick="setGardenView('plot')">🌻 My Garden</button>
+    <button class="view-toggle-btn active" id="plotViewBtn" onclick="setGardenView('plot')">🌻 Plot</button>
     <button class="view-toggle-btn" id="inventoryViewBtn" onclick="setGardenView('inventory')">📋 Inventory</button>
     <button class="view-toggle-btn" id="leaderboardViewBtn" onclick="setGardenView('leaderboard')">🏆 Leaderboard</button>
     <button class="view-toggle-btn" id="logIbadahNavBtn" onclick="switchTab('log')">✏️ Log Ibadah</button>
@@ -276,7 +287,11 @@
       <span class="week-label">This week</span>
       <div class="day-dots" id="dayDots"></div>
     </div>
-    <div class="name-selector" id="nameSelector"></div>
+    <div class="name-search-wrap" id="nameSearchWrap" style="display:none">
+      <input type="text" class="name-search-input" id="nameSearchInput" placeholder="🔍 Search a sister's garden..." oninput="filterNameSearch(this.value)" onfocus="filterNameSearch(this.value)">
+      <div class="name-search-results" id="nameSearchResults"></div>
+    </div>
+    <div class="name-selector" id="nameSelector" style="display:none"></div>
     <div class="back-to-mine" id="backToMineBar"></div>
     <div class="stats-row" id="statsRow">
       <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Plants this week</div></div>
@@ -492,17 +507,17 @@ async function loadNames() {
   }
 }
 
+let allMemberNames = [];
+
 function buildNameSelectors(names) {
-  // Garden name buttons
-  const sel = document.getElementById('nameSelector');
-  sel.innerHTML = '';
-  names.forEach(n => {
-    const b = document.createElement('button');
-    b.className = 'name-btn'; b.dataset.name = n; b.textContent = n;
-    b.onclick = () => loadMember(n);
-    sel.appendChild(b);
-  });
-  // Form name dropdown
+  allMemberNames = names;
+  // The old wall of name pills is gone — "My Garden" mode has no need to browse
+  // others at all (full immersion in your own plot), and "All Gardens" mode
+  // gets a search box instead (wired up once we know whether ?member= matched).
+  document.getElementById('nameSelector').innerHTML = '';
+  document.getElementById('nameSelector').style.display = 'none';
+
+  // Form name dropdown (used when logging ibadah — unaffected by the above)
   const fsel = document.getElementById('formNameSelector');
   fsel.innerHTML = '<option value="">Select your name...</option>';
   names.forEach(n => {
@@ -519,6 +534,10 @@ function buildNameSelectors(names) {
     myGardenName = match || null;
     const initial = match || names[0];
 
+    // "My Garden" mode (?member matched) → no search box needed at all.
+    // "All Gardens" mode (no match, e.g. opened via the bare tracker link) → search box.
+    document.getElementById('nameSearchWrap').style.display = match ? 'none' : '';
+
     loadMember(initial);
     loadLeaderboard(names);
 
@@ -528,6 +547,30 @@ function buildNameSelectors(names) {
     }
   }
 }
+
+// Search box shown only in "All Gardens" mode — filters allMemberNames as she types.
+function filterNameSearch(query) {
+  const results = document.getElementById('nameSearchResults');
+  const q = query.trim().toLowerCase();
+  if (!q) { results.innerHTML = ''; results.style.display = 'none'; return; }
+  const matches = allMemberNames.filter(n => n.toLowerCase().includes(q)).slice(0, 8);
+  if (!matches.length) {
+    results.innerHTML = '<div class="name-search-empty">No matches</div>';
+    results.style.display = 'block';
+    return;
+  }
+  results.innerHTML = matches.map(n => `<button class="name-search-item" onclick="selectSearchedName('${n.replace(/'/g, "\\'")}')">${n}</button>`).join('');
+  results.style.display = 'block';
+}
+function selectSearchedName(name) {
+  document.getElementById('nameSearchInput').value = name;
+  document.getElementById('nameSearchResults').style.display = 'none';
+  loadMember(name);
+}
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('nameSearchWrap');
+  if (wrap && !wrap.contains(e.target)) document.getElementById('nameSearchResults').style.display = 'none';
+});
 
 /* ── FORM DATA ── */
 const QURAN_PAGES_PLANTS = {
@@ -1007,10 +1050,6 @@ async function loadMember(name, forceRefresh) {
     savePlotLayout(false);
   }
   currentName = name;
-  document.querySelectorAll('#nameSelector .name-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.name===name);
-    b.classList.toggle('mine', myGardenName && b.dataset.name===myGardenName);
-  });
   updateBackToMineBar(name);
 
   // Only the device's own gardener can see her Inventory breakdown; everyone
