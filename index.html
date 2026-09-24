@@ -27,7 +27,8 @@
       .sky-bg{height:280px}
       .header{padding:16px 40px 10px}
       .header h1{font-size:22px}
-      .control-bar{padding:0 40px}
+      .control-bar{padding:0 40px 8px}
+      .view-toggle{padding:10px 40px}
       .name-selector{gap:10px}
       .name-btn{padding:8px 20px;font-size:14px}
       .stats-row{grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
@@ -92,16 +93,16 @@
     .stat-label{font-size:10px;color:var(--text-soft);margin-top:2px;line-height:1.3}
 
     /* Control bar — persistent nav shared by every panel, sits directly above whatever's active */
-    .control-bar{position:relative;z-index:2;flex-shrink:0;padding:8px 16px;display:flex;flex-direction:column;gap:8px;background:var(--cream)}
-    /* View toggle (Garden / Inventory / Leaderboard / Log Ibadah) */
-    .view-toggle{position:relative;z-index:1;display:flex;justify-content:center;flex-wrap:wrap;gap:6px}
+    .control-bar{position:relative;z-index:2;flex-shrink:0;padding:0 16px 8px;display:flex;flex-direction:column;gap:8px;background:var(--cream)}
+    /* View toggle (Garden / Inventory / Leaderboard / Log Ibadah) — the very first thing in the app */
+    .view-toggle{position:relative;z-index:3;flex-shrink:0;display:flex;justify-content:center;flex-wrap:wrap;gap:6px;padding:10px 16px;background:var(--rose-pale);border-bottom:1px solid var(--rose-light)}
     .view-toggle-btn{padding:8px 14px;border-radius:20px;border:1.5px solid var(--rose-light);background:white;font-family:'Nunito',sans-serif;font-size:12.5px;font-weight:700;color:var(--rose);cursor:pointer;transition:all 0.18s;white-space:nowrap}
     .view-toggle-btn.active{background:var(--rose);color:white;border-color:var(--rose)}
     .view-toggle-btn[hidden]{display:none}
 
     /* Garden plot view — fills 100% of whatever space is left below the control bar */
     .plot-wrap{position:relative;z-index:1;flex:1;min-height:0;display:flex;flex-direction:column}
-    .plot-canvas{position:relative;flex:1;min-height:0;width:100%;overflow:hidden;background:#e9dcc8 url('images/garden-plot-bg.jpg') center/cover no-repeat}
+    .plot-canvas{position:relative;flex:1;min-height:0;width:100%;overflow:hidden;background:#e9dcc8 url('images/garden-plot-bg.jpg') center/contain no-repeat}
     .plot-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-size:13px;color:#fff;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,0.5);background:rgba(60,40,20,0.28)}
     .hotspot-marker{position:absolute;width:22px;height:22px;border-radius:50%;border:2px dashed rgba(255,255,255,0.85);background:rgba(255,255,255,0.15);transform:translate(-50%,-50%);pointer-events:none;transition:all 0.15s;z-index:5}
     .hotspot-marker.active{background:rgba(255,255,255,0.6);border-style:solid;transform:translate(-50%,-50%) scale(1.35)}
@@ -237,6 +238,14 @@
 <div class="app">
   <div class="sky-bg"></div>
 
+  <!-- Top nav row — sits right where the outer "My Garden / All Gardens" toggle hands off -->
+  <div class="view-toggle" id="topViewToggle">
+    <button class="view-toggle-btn active" id="plotViewBtn" onclick="setGardenView('plot')">🌻 My Garden</button>
+    <button class="view-toggle-btn" id="inventoryViewBtn" onclick="setGardenView('inventory')">📋 Inventory</button>
+    <button class="view-toggle-btn" id="leaderboardViewBtn" onclick="setGardenView('leaderboard')">🏆 Leaderboard</button>
+    <button class="view-toggle-btn" id="logIbadahNavBtn" onclick="switchTab('log')">✏️ Log Ibadah</button>
+  </div>
+
   <div class="header">
     <button class="settings-gear" id="settingsGearBtn" onclick="openProfileSettings()">⚙️</button>
     <h1>Sisters Quran Club 🌸</h1>
@@ -273,12 +282,6 @@
       <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Plants this week</div></div>
       <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Quran sessions</div></div>
       <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Adhkar done</div></div>
-    </div>
-    <div class="view-toggle">
-      <button class="view-toggle-btn active" id="plotViewBtn" onclick="setGardenView('plot')">🌻 My Garden</button>
-      <button class="view-toggle-btn" id="inventoryViewBtn" onclick="setGardenView('inventory')">📋 Inventory</button>
-      <button class="view-toggle-btn" id="leaderboardViewBtn" onclick="setGardenView('leaderboard')">🏆 Leaderboard</button>
-      <button class="view-toggle-btn" id="logIbadahNavBtn" onclick="switchTab('log')">✏️ Log Ibadah</button>
     </div>
   </div>
 
@@ -652,11 +655,21 @@ function getAttr(map, name) {
 }
 
 /* ── TAB SWITCHING ── */
+let activeMainTab = 'garden'; // 'garden' | 'log'
+
 function switchTab(tab) {
+  activeMainTab = tab;
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + tab).classList.add('active');
-  document.getElementById('nav-' + tab).classList.add('active');
+  updateControlBarActiveStates();
+}
+
+function updateControlBarActiveStates() {
+  const onGarden = activeMainTab === 'garden';
+  document.getElementById('plotViewBtn').classList.toggle('active', onGarden && gardenView==='plot');
+  document.getElementById('inventoryViewBtn').classList.toggle('active', onGarden && gardenView==='inventory');
+  document.getElementById('leaderboardViewBtn').classList.toggle('active', onGarden && gardenView==='leaderboard');
+  document.getElementById('logIbadahNavBtn').classList.toggle('active', activeMainTab==='log');
 }
 
 /* ── WEEK SETUP ── */
@@ -759,12 +772,15 @@ function setGardenView(view) {
   // Nobody can view someone else's Inventory — force back to the plot if that's attempted.
   if (view === 'inventory' && !viewingIsMine) view = 'plot';
   gardenView = view;
-  document.getElementById('plotViewBtn').classList.toggle('active', view==='plot');
-  document.getElementById('inventoryViewBtn').classList.toggle('active', view==='inventory');
-  document.getElementById('leaderboardViewBtn').classList.toggle('active', view==='leaderboard');
+  if (activeMainTab !== 'garden') switchTab('garden');
   document.getElementById('plotWrap').style.display = view==='plot' ? '' : 'none';
   document.getElementById('gardenContent').style.display = view==='inventory' ? '' : 'none';
   document.getElementById('leaderboardSection').style.display = view==='leaderboard' ? '' : 'none';
+  // Keep the plot view completely unobstructed — the week strip and stat cards
+  // only make sense while looking at Inventory/Leaderboard.
+  document.getElementById('weekStrip').style.display = view==='plot' ? 'none' : '';
+  document.getElementById('statsRow').style.display  = view==='plot' ? 'none' : '';
+  updateControlBarActiveStates();
 }
 
 async function renderPlot(name, entries, isMine) {
